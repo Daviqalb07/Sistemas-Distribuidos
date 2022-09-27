@@ -33,8 +33,9 @@ def main():
 
 def send(client: socket.socket, nickname: str):
     while True:
+        print()
         message = input()
-        object = message_json(nickname, message)
+        object = message_json(NORMAL_MESSAGE, nickname, message)
         try:
             client.send(pickle.dumps(object))
         except:
@@ -42,17 +43,30 @@ def send(client: socket.socket, nickname: str):
 
 def receive(client: socket.socket):
     while True:
+        print()
         try:
             receive = client.recv(4096)
             object = pickle.loads(receive)
 
-            if object['message'] != "":
-                print(f"{object['nickname']}: {object['message']}")
-        except:
-            print("Erro ao receber")
+            if object['tipo'] == SERVER_RESPONSE_USERS:
+                print("Usuários no chat:")
+                for username in object['message']:
+                    print(username)
+            
+            elif object['tipo'] == NORMAL_MESSAGE:
+                if object['message'] != "":
+                    print(f"{object['nickname']}: {object['message']}")
+            
+            elif object['tipo'] == CLIENT_QUIT:
+                print(object['message'])
+                sys.exit(0)
 
-def message_json(nickname:str, message: str):
+        except Exception as e:
+            print(e)
+
+def message_json(tipo: int, nickname:str, message: str):
     return {
+        'tipo': tipo,
         'nickname': nickname,
         'message': message
     }
