@@ -30,7 +30,7 @@ def main():
             if entrar_args[1].lower() == "localhost" or entrar_args[1] == "127.0.0.1":
                 SERVER_ADDRESS = "localhost"
             else:
-                SERVER_ADDRESS = socket.inet_aton(entrar_args[1])
+                SERVER_ADDRESS = entrar_args[1]
             
             SERVER_PORT = int(entrar_args[2])
 
@@ -68,7 +68,7 @@ def send(client: socket.socket, nickname: str):
     while True:
         print()
         message = input()
-        if message == "/SAIR":
+        if message.upper() == "/SAIR":
             quitted_flag = True
             object = message_json(NORMAL_MESSAGE, nickname, message)
         else:

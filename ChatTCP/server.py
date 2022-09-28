@@ -37,7 +37,7 @@ def main():
         except:
             break
         
-        
+
 
 def thread_client(client: socket.socket, client_nickname: str):
     global clients_nicknames, clients_sockets
@@ -49,11 +49,11 @@ def thread_client(client: socket.socket, client_nickname: str):
         except socket.error as error:
             print(f"{error} de nickname: {client_nickname}")
             break
-        if object['message'] == "/USUARIOS":
+        if object['message'].upper() == "/USUARIOS":
             response = response_json(SERVER_RESPONSE_USERS, clients_nicknames)
             client.send(pickle.dumps(response))
         
-        elif object['message'] == "/SAIR":
+        elif object['message'].upper() == "/SAIR":
             object['message'] = "saiu"
             object_bytes = pickle.dumps(object)
 
@@ -64,7 +64,7 @@ def thread_client(client: socket.socket, client_nickname: str):
                     except socket.error as error:
                         print(error)
             
-            response = response_json(CLIENT_QUIT, f"<{object['nickname']}> {object['message']}")
+            response = response_json(CLIENT_QUIT, f"{object['nickname']} {object['message']}")
             try:
                 client.send(pickle.dumps(response))
             except socket.error as error:
