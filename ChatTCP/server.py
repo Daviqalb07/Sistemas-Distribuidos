@@ -30,18 +30,16 @@ def main():
         try:
             client_sock, _ = server.accept()
             client_nickname = client_sock.recv(4096).decode('utf-8')
-            threading.Thread(target= thread_client, args= [client_sock]).start()
+            threading.Thread(target= thread_client, args= [client_sock, client_nickname]).start()
             clients_sockets.append(client_sock)
             clients_nicknames.append(client_nickname)
 
         except:
             break
+        
+        
 
-
-    
-
-
-def thread_client(client: socket.socket):
+def thread_client(client: socket.socket, client_nickname: str):
     global clients_nicknames, clients_sockets
     while True:
         try:
@@ -49,9 +47,8 @@ def thread_client(client: socket.socket):
             object = pickle.loads(object_bytes)
 
         except socket.error as error:
-            print(error)
+            print(f"{error} de nickname: {client_nickname}")
             break
-        
         if object['message'] == "/USUARIOS":
             response = response_json(SERVER_RESPONSE_USERS, clients_nicknames)
             client.send(pickle.dumps(response))

@@ -56,7 +56,7 @@ def main():
             threading.Thread(target= receive, args= [client]).start()
 
             while True:
-                if threading.active_count() != 0:
+                if threading.active_count() != 1:
                     pass
                 else:
                     break
@@ -70,14 +70,17 @@ def send(client: socket.socket, nickname: str):
         message = input()
         if message == "/SAIR":
             quitted_flag = True
-            quitted += 1
-            break
-        object = message_json(NORMAL_MESSAGE, nickname, message)
+            object = message_json(NORMAL_MESSAGE, nickname, message)
+        else:
+            object = message_json(NORMAL_MESSAGE, nickname, message)
         try:
             client.send(pickle.dumps(object))
         except:
             print("Erro ao enviar")
-    print("encerrando 1")
+
+        if quitted_flag:
+            quitted_flag = False
+            break
 
 def receive(client: socket.socket):
     global quitted_flag, quitted
@@ -96,20 +99,15 @@ def receive(client: socket.socket):
             elif object['tipo'] == NORMAL_MESSAGE:
                 if object['message'] != "":
                     print(f"<{object['nickname']}>: {object['message']}")
-                # if quitted_flag:
-                #     client.close()
-                #     quitted_flag = False
-                #     break
+
             elif object['tipo'] == CLIENT_QUIT:
                 print(object['message'])
-                print("entrei no if")
                 client.close()
                 break
     
 
         except Exception as e:
             print(e)
-    print("encerrando 2")
 
 def message_json(tipo: int, nickname:str, message: str):
     return {
