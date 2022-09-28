@@ -5,28 +5,36 @@ import pickle
 from properties import *
 
 quitted = False
-
 def main():
-    nickname = input("Digite seu username: ")
-    try:
-        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    except:
-        print("Não deu certo :(")
-        sys.exit(1)
+    print("Comandos do servidor:")
+    print("1 - /ENTRAR <IP> <PORTA>: Para entrar no Chat")
+    print("2 - /USUARIOS : Para receber a lista de usuários no chat")
+    print("3 - /SAIR : Para sair do chat")
 
-    try:
-        client.connect((SERVER_ADDRESS, SERVER_PORT))
-        client.send(bytes(nickname, 'utf-8'))
-    except socket.gaierror as e:
-        print("Address-related error: %s" % e)
-        sys.exit(1)
-    except socket.error as e:
-        print("Error connecting to server: %s" % e)
-        sys.exit(1)
+    entrar = input()
+    while entrar != "/ENTRAR":
+        entrar = input()
+    if entrar == "/ENTRAR": 
+        nickname = input("Digite seu username: ")
+        try:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        except:
+            print("Não deu certo :(")
+            sys.exit(1)
+
+        try:
+            client.connect((SERVER_ADDRESS, SERVER_PORT))
+            client.send(bytes(nickname, 'utf-8'))
+        except socket.gaierror as e:
+            print("Address-related error: %s" % e)
+            sys.exit(1)
+        except socket.error as e:
+            print("Error connecting to server: %s" % e)
+            sys.exit(1)
 
 
-    threading.Thread(target= send, args= [client, nickname]).start()
-    threading.Thread(target= receive, args= [client]).start()
+        threading.Thread(target= send, args= [client, nickname]).start()
+        threading.Thread(target= receive, args= [client]).start()
 
     while True:
         pass
