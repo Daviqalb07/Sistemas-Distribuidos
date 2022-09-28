@@ -4,17 +4,8 @@ import sys
 import threading
 from properties import *
 
-
-# class Client:
-#     def __init__(self, nickname: str, sock: socket.socket):
-#         self.nickname = nickname
-#         self.sock = sock
-    
-#     def get_nickname(self):
-#         return self.nickname
-    
-#     def get_sock(self) -> socket.socket:
-#         return self.sock
+SERVER_ADDRESS = "localhost"
+SERVER_PORT = 8181
 
 clients_sockets = []
 clients_nicknames = []
@@ -28,7 +19,7 @@ def main():
 
     try:
         server.bind((SERVER_ADDRESS, SERVER_PORT))
-        print("Server on! :D")
+        print(f"Server on na porta {SERVER_PORT} ! :D")
     except:
         print(f"Porta {SERVER_PORT} ocupada")
         sys.exit(1)
@@ -70,10 +61,17 @@ def thread_client(client: socket.socket):
             object_bytes = pickle.dumps(object)
 
             for cli in clients_sockets:
-                try:
-                    cli.send(object_bytes)
-                except socket.error as error:
-                    print(error)
+                if cli != client:
+                    try:
+                        cli.send(object_bytes)
+                    except socket.error as error:
+                        print(error)
+            
+            response = response_json(CLIENT_QUIT, f"<{object['nickname']}> {object['message']}")
+            try:
+                client.send(pickle.dumps(response))
+            except socket.error as error:
+                print(error)
             break
 
         
