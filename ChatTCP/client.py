@@ -4,6 +4,8 @@ import sys
 import pickle
 from properties import *
 
+quitted = False
+
 def main():
     nickname = input("Digite seu username: ")
     try:
@@ -32,9 +34,12 @@ def main():
     client.close()
 
 def send(client: socket.socket, nickname: str):
+    global quitted
     while True:
         print()
         message = input()
+        if message == "/SAIR":
+            quitted = True
         object = message_json(NORMAL_MESSAGE, nickname, message)
         try:
             client.send(pickle.dumps(object))
@@ -42,6 +47,8 @@ def send(client: socket.socket, nickname: str):
             print("Erro ao enviar")
 
 def receive(client: socket.socket):
+    global quitted
+
     while True:
         print()
         try:
@@ -55,11 +62,12 @@ def receive(client: socket.socket):
             
             elif object['tipo'] == NORMAL_MESSAGE:
                 if object['message'] != "":
-                    print(f"{object['nickname']}: {object['message']}")
-            
-            elif object['tipo'] == CLIENT_QUIT:
-                print(object['message'])
-                sys.exit(0)
+                    print(f"<{object['nickname']}>: {object['message']}")
+                if quitted:
+                    client.close()
+                    quitted = False
+                    sys.exit(0)
+    
 
         except Exception as e:
             print(e)

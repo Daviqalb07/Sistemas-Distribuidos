@@ -5,18 +5,18 @@ import threading
 from properties import *
 
 
-class Client:
-    def __init__(self, nickname: str, sock: socket.socket):
-        self.nickname = nickname
-        self.sock = sock
+# class Client:
+#     def __init__(self, nickname: str, sock: socket.socket):
+#         self.nickname = nickname
+#         self.sock = sock
     
-    def get_nickname(self):
-        return self.nickname
+#     def get_nickname(self):
+#         return self.nickname
     
-    def get_sock(self) -> socket.socket:
-        return self.sock
+#     def get_sock(self) -> socket.socket:
+#         return self.sock
 
-clients = []
+clients_sockets = []
 clients_nicknames = []
 
 def main():
@@ -39,9 +39,8 @@ def main():
         try:
             client_sock, _ = server.accept()
             client_nickname = client_sock.recv(4096).decode('utf-8')
-            client = Client(client_nickname, client_sock)
-            threading.Thread(target= thread_client, args= [client]).start()
-            clients.append(client)
+            threading.Thread(target= thread_client, args= [client_sock]).start()
+            clients_sockets.append(client_sock)
             clients_nicknames.append(client_nickname)
 
         except:
@@ -51,10 +50,11 @@ def main():
     
 
 
-def thread_client(client: Client):
+def thread_client(client: socket.socket):
+    global clients_nicknames, clients_sockets
     while True:
         try:
-            object_bytes = client.get_sock().recv(4096)
+            object_bytes = client.recv(4096)
             object = pickle.loads(object_bytes)
 
         except socket.error as error:
@@ -63,34 +63,36 @@ def thread_client(client: Client):
         
         if object['message'] == "/USUARIOS":
             response = response_json(SERVER_RESPONSE_USERS, clients_nicknames)
-            client.get_sock().send(pickle.dumps(response))
+            client.send(pickle.dumps(response))
         
         elif object['message'] == "/SAIR":
-            object['tipo'] = CLIENT_QUIT
-            object['message'] = f"{object['nickname']} saiu"
+            object['message'] = "saiu"
             object_bytes = pickle.dumps(object)
 
-            for cli in clients:
+            for cli in clients_sockets:
                 try:
-                    cli.get_sock().send(object_bytes)
+                    cli.send(object_bytes)
                 except socket.error as error:
                     print(error)
             break
+
         
         else:
-            for cli in clients:
+            for cli in clients_sockets:
                 if cli != client:
                     try:
-                        cli.get_sock().send(object_bytes)
+                        cli.send(object_bytes)
                     except socket.error as error:
                         print(error)
-    clients.remove(client)
+
+    clients_sockets.remove(client)
     clients_nicknames.remove(object['nickname'])
-    client.get_sock().close()
+    client.close()
     
 def response_json(tipo: int, content):
     return {
         'tipo': tipo,
         'message': content
     }
+
 main()
