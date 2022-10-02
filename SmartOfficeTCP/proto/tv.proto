@@ -1,0 +1,7 @@
+syntax="proto3";
+
+message TV {
+    bool status = 1;
+    int32 volume = 2;
+    int32 canal = 3;
+}
