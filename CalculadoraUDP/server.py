@@ -18,7 +18,10 @@ def calcula(request: str):
         elif op == '*':
             resultado = n1 * n2
         elif op == '/':
-            resultado = n1 / n2
+            if n2 == 0:
+                return f"{request} = {'Divisao por zero, tente novamente'}"
+            else:
+                resultado = n1 / n2
     
         return f"{request} = {resultado}"
     except:
