@@ -11,14 +11,14 @@ SERVER_PORT = 8181
 
 def main():
     print("Comandos do servidor:")
-    print("1 - /ENTRAR <IP> <PORTA>: Para entrar no Chat")
-    print("2 - /USUARIOS : Para receber a lista de usuários no chat")
-    print("3 - /SAIR : Para sair do chat")
+    print("1 - /ENTRAR <IP> <PORTA>: Para entrar no chat")
+    print("2 - /USUARIOS: Para receber a lista de usuários no chat")
+    print("3 - /SAIR: Para sair do chat")
 
     entrar = ""
 
     while True:
-        entrar = input("Primeiro, entre em algum chat com o /ENTRAR:\n")
+        entrar = input("Primeiro, entre em algum chat com o comando /ENTRAR:\n")
 
         
         entrar_args = entrar.split()
@@ -34,21 +34,21 @@ def main():
             
             SERVER_PORT = int(entrar_args[2])
 
-            nickname = input("Digite seu username: ")
+            nickname = input("Insira seu username: ")
             try:
                 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             except:
-                print("Não deu certo :(")
+                print("Tente novamente, não deu certo :(")
                 sys.exit(1)
 
             try:
                 client.connect((SERVER_ADDRESS, SERVER_PORT))
                 client.send(bytes(nickname, 'utf-8'))
             except socket.gaierror as e:
-                print("Address-related error: %s" % e)
+                print("Problema com endereço: %s" % e)
                 sys.exit(1)
             except socket.error as e:
-                print("Error connecting to server: %s" % e)
+                print("Erro ao se conectar com o servidor: %s" % e)
                 sys.exit(1)
 
 

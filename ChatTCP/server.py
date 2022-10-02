@@ -21,7 +21,7 @@ def main():
         server.bind((SERVER_ADDRESS, SERVER_PORT))
         print(f"Server on na porta {SERVER_PORT} ! :D")
     except:
-        print(f"Porta {SERVER_PORT} ocupada")
+        print(f"Porta {SERVER_PORT} ocupada, tente novamente!")
         sys.exit(1)
 
     server.listen()
