@@ -1,0 +1,29 @@
+syntax="proto3";
+
+package SmartOffice;
+
+message Request{
+    int32 type = 1;
+    string name = 2;
+
+    message Actuator{
+        int32 id = 1;
+        string name = 2;
+        bool state = 3;
+    }
+
+    Actuator actuator = 3;
+    message Sensor{
+        int32 id = 1;
+        string name = 2;
+        bool value = 3;
+    }
+    Sensor sensor = 4;
+
+    string ip = 5;
+    string port = 6;
+}
+
+message Response{
+    string name = 1;
+}

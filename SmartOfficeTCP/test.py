@@ -1,5 +1,5 @@
 from Lampada import *
+import pb2.lampada_pb2 as lamp
 
-lamp = Lampada()
-lamp.ParseFromString(b'\x08\x00\x10\x02\x18\x01')
-lamp.print_fancy()
+lampada = Lampada(True, RED, True)
+lamp.Lampada(lampada)
