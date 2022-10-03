@@ -1,12 +1,14 @@
-syntax="proto3";
+syntax="proto2";
+
+package SmartOffice;
 
 message Lampada{
-    bool status = 1;
+    required bool on = 1;
     enum Color {
         RED = 0;
         GREEN = 1;
         BLUE = 2;
     }
-    Color color = 2;
-    bool sensor = 3;
+    optional Color color = 2;
+    optional bool sensor = 3;
 }

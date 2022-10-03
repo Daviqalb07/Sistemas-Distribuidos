@@ -1,7 +1,7 @@
-syntax="proto3";
+syntax="proto2";
 
 message TV {
-    bool status = 1;
-    int32 volume = 2;
-    int32 canal = 3;
+    required bool on = 1;
+    optional int32 volume = 2;
+    optional int32 canal = 3;
 }
