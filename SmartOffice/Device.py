@@ -1,10 +1,9 @@
 import struct
 import socket
-from time import sleep
 import message_pb2
-
+from properties import BUFFER_SIZE
 # 224 - 239
-BUFFER_SIZE = 1024
+
 
 class Device:
     def __init__(self, id: int, name: str, multicast_ip: str, multicast_port: int, sensor, actions) -> None:
@@ -35,8 +34,8 @@ class Device:
 
         message_join = message_pb2.Message()
         message_join.type = "DEVICE_JOIN"
-        message_join.device.name = self.name
 
+        message_join.device.name = self.name
         message_join.device.sensor.name = self.sensor['name']
         message_join.device.sensor.value = self.sensor['value']
 
@@ -50,5 +49,3 @@ class Device:
         server_address = (server_ip, server_port)
         self.sock_tcp.connect(server_address)
         self.sock_tcp.send(message_join.SerializeToString())
-        while True:
-            pass
