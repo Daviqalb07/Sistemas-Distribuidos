@@ -9,7 +9,6 @@ message Device{
     string name = 2;
 
     message Actuator{
-        int32 id = 1;
         string name = 2;
         bool state = 3;
     }
@@ -17,9 +16,8 @@ message Device{
     Actuator actuator = 3;
 
     message Sensor{
-        int32 id = 1;
         string name = 2;
-        bool value = 3;
+        int32 value = 3;
     }
     Sensor sensor = 4;
 }
