@@ -1,5 +1,4 @@
 from Device import *
-import device_pb2
 
 sensor = {
     'name': 'presenca',
@@ -16,5 +15,3 @@ actions.append({
 })
 device = Device(id=1, name= "lampada", multicast_ip="224.1.1.1", multicast_port=5001, 
                 sensor= sensor, actions = actions)
-
-print(device.sensor.value)

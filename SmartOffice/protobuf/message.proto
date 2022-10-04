@@ -49,11 +49,11 @@ message Measurement{
 message Message {
     string type = 1;
     oneof content{
-        Device device = 1;
-        Measurement measurement = 2;
-        Action action = 3;
-        /* Request request = 4;
-        Response response = 5; */
+        Device device = 2;
+        Measurement measurement = 3;
+        Action action = 4;
+        /* Request request = 5;
+        Response response = 6; */
     }
 }
 
