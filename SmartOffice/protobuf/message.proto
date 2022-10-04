@@ -1,0 +1,59 @@
+syntax="proto3";
+
+package SmartOffice;
+
+message Action{
+    int32 id = 1;
+    string name = 2;
+}
+
+message Device{
+    int32 id = 1;
+    string name = 2;
+
+    message Sensor{
+        string name = 2;
+        int32 value = 3;
+    }
+    Sensor sensor = 3;
+
+    repeated Action actions = 4;
+}
+
+message Measurement{
+    int32 id = 1;
+    string name = 2;
+    float value = 3;
+}
+
+/* message Request{
+    string type = 1;
+    string name = 2;
+
+    repeated Action actions = 3;
+
+    message Sensor{
+        string name = 2;
+        int32 value = 3;
+    }
+    Sensor sensor = 4;
+
+    string ip = 5;
+    string port = 6;
+} */
+
+/* message Response{
+    string name = 1;
+} */
+
+message Message {
+    string type = 1;
+    oneof content{
+        Device device = 1;
+        Measurement measurement = 2;
+        Action action = 3;
+        /* Request request = 4;
+        Response response = 5; */
+    }
+}
+
