@@ -8,16 +8,16 @@ message Device{
     int32 id = 1;
     string name = 2;
 
-    message Actuator{
-        string name = 2;
-        bool state = 3;
-    }
-
-    Actuator actuator = 3;
-
     message Sensor{
         string name = 2;
         int32 value = 3;
     }
-    Sensor sensor = 4;
+    Sensor sensor = 3;
+
+    message Action{
+        int32 id = 1;
+        string name = 2;
+    }
+
+    repeated Action actions = 4;
 }
