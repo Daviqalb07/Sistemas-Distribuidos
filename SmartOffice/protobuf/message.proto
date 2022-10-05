@@ -26,25 +26,14 @@ message Measurement{
     float value = 3;
 }
 
-/* message Request{
-    string type = 1;
-    string name = 2;
-
-    repeated Action actions = 3;
-
-    message Sensor{
-        string name = 2;
-        int32 value = 3;
-    }
-    Sensor sensor = 4;
-
-    string ip = 5;
-    string port = 6;
-} */
-
-/* message Response{
+message Request{
     string name = 1;
-} */
+    int32 id = 2;
+}
+ 
+message Response{
+    repeated Device devices = 1;
+}
 
 message Message {
     string type = 1;
@@ -52,8 +41,8 @@ message Message {
         Device device = 2;
         Measurement measurement = 3;
         Action action = 4;
-        /* Request request = 5;
-        Response response = 6; */
+        Request request = 5;
+        // Response response = 6;
     }
 }
 

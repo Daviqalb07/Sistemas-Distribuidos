@@ -1,6 +1,0 @@
-syntax="proto2";
-
-message ArCondicionado {
-    required bool on = 1;
-    optional int32 temperatura = 2;
-}

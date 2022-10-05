@@ -32,9 +32,8 @@ class Device:
     def connect_to_gateway(self, server_ip, server_port):
         self.sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        message_join = message_pb2.Message()
-        message_join.type = "DEVICE_JOIN"
-
+        message_join = message_pb2.Message(type= "DEVICE_JOIN")
+        message_join.device.id = self.id
         message_join.device.name = self.name
         message_join.device.sensor.name = self.sensor['name']
         message_join.device.sensor.value = self.sensor['value']
@@ -43,8 +42,7 @@ class Device:
             act = message_join.device.actions.add()
             act.id = action['id']
             act.name = action['name']
-        # message_join.ip = self.multicast_ip
-        # message_join.port = self.multicast_port
+
 
         server_address = (server_ip, server_port)
         self.sock_tcp.connect(server_address)

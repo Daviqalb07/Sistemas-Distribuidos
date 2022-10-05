@@ -6,12 +6,15 @@ from properties import *
 
 
 devices = []
+clients = []
+
+
 def main():
     try:
         server_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-    except:
-        print("Não deu certo :(")
+    except Exception as e:
+        print(e)
         sys.exit(1)
 
     try:
@@ -27,41 +30,38 @@ def main():
         try:
             connection, _ = server_tcp.accept()
             threading.Thread(target= handle_connection, args=[connection]).start()
-        #     data, _ = connection.recv(BUFFER_SIZE)
-        #     message = message_pb2.Message()
-        #     message.ParseFromString(data)
-        #     print("cheguei 0")
-
-        #     if message.type == "DEVICE_JOIN":
-        #         devices.append(message.device)
-        #         threading.Thread(target= thread_recv_from_device, args=[connection]).start()
-        #         print("entrou 1")
-        #     elif message.type == "CLIENT_CONNECTION":
-        #         threading.Thread(target= thread_client, args= [connection]).start()
-        #         print("entrou 2")
+        
         except:
             break
         
+
+
 def handle_connection(connection: socket.socket):
     try:
         message = message_pb2.Message()
         data = connection.recv(BUFFER_SIZE)
         message.ParseFromString(data)
+        
         if message.type == "DEVICE_JOIN":
             threading.Thread(target= thread_recv_from_device, args=[connection]).start()
+            update_device(message)
         elif message.type == "CLIENT_JOIN":
             threading.Thread(target= thread_client, args=[connection]).start()
+            clients.append(connection)
 
     except Exception as e:
         print(e)
+
+
 
 def discovery_devices(server_udp: socket.socket):
     server_udp.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
     while True:
         server_udp.sendto(bytes(f"{GATEWAY_ADDRESS} {GATEWAY_PORT}", encoding='utf-8'), ("224.1.1.1", 5001))
 
+
+
 def thread_recv_from_device(device: socket.socket):
-    past = 20
     while True:
         try:
             message = message_pb2.Message()
@@ -71,15 +71,86 @@ def thread_recv_from_device(device: socket.socket):
         except Exception as e:
             print(e)
 
+
 def thread_client(client: socket.socket):
+    global devices
+
     while True:
         try:
             message = message_pb2.Message()
             data = client.recv(BUFFER_SIZE)
             message.ParseFromString(data)
 
+            if message.type == "GET":
+                if message.request.name == "devices":
+
+                    response = message_pb2.Response()
+                    for device in devices:
+                        res = response.devices.add()
+                        res.id = device['id']
+                        res.name = device['name']
+                        res.sensor.name = device['sensor']['name']
+                        res.sensor.value = device['sensor']['value']
+
+                        for action in device['actions']:
+                            a = res.actions.add()
+                            a.id = action['id']
+                            a.name = action['name']
+                    client.send(response.SerializeToString())
+
             
         except Exception as e:
             print(e)
+
+
+def thread_send(sock: socket.socket, data):
+    try:
+        sock.send(data)
+    except Exception as e:
+        print(e)
+
+
+def search_device(id: int):
+    global devices
+    for i in range(len(devices)):
+        if devices[i]['id'] == id:
+            return devices[i]
+    
+    return None
+
+
+def update_device(message):
+    global devices
+    new_device = {
+        'id': message.device.id,
+        'name': message.device.name,
+        'sensor': {
+            'name': message.device.sensor.name,
+            'value': message.device.sensor.value
+        },
+        'actions': []
+    }
+    for action in message.device.actions[:]:
+        new_device["actions"].append({
+            'id':action.id,
+            'name':action.name
+        })
+    devices.append(new_device)
+    # else:
+    #     devices[index] = {
+    #         'id': message.device.id,
+    #         'name': message.device.name,
+    #         'sensor': {
+    #             'name': message.device.sensor.name,
+    #             'value': message.device.sensor.value
+    #         },
+    #         'actions': []
+    #     }
+    #     for action in message.device.actions:
+    #         new_device["actions"].append({
+    #             'id':action.id,
+    #             'name':action.name
+    #         })
+
 
 main()

@@ -1,7 +1,0 @@
-syntax="proto2";
-
-message TV {
-    required bool on = 1;
-    optional int32 volume = 2;
-    optional int32 canal = 3;
-}
