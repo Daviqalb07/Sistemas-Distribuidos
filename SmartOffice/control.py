@@ -25,7 +25,8 @@ def main():
     request = message_pb2.Message()
     request.type = "POST"
     request.request.name = "action"
-    request.request.idDevice = 1
+    idDevice = int(input("Qual id do dispositivo que deseja realizar a ação: "))
+    request.request.idDevice = idDevice
     action = int(input("Qual id da ação que deseja realizar: "))
     request.request.idAction = action
     control_sock.send(request.SerializeToString())
