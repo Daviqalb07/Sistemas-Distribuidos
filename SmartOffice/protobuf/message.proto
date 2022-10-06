@@ -28,7 +28,7 @@ message Measurement{
 
 message Request{
     string name = 1;
-    int32 id = 2;
+    int32 idDevice = 2;
 }
  
 message Response{
