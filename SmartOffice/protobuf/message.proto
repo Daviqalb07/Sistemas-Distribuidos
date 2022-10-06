@@ -10,14 +10,14 @@ message Action{
 message Device{
     int32 id = 1;
     string name = 2;
-
+    bool on = 3;
     message Sensor{
         string name = 2;
         int32 value = 3;
     }
-    Sensor sensor = 3;
+    Sensor sensor = 4;
 
-    repeated Action actions = 4;
+    repeated Action actions = 5;
 }
 
 message Measurement{
@@ -29,6 +29,7 @@ message Measurement{
 message Request{
     string name = 1;
     int32 idDevice = 2;
+    int32 idAction = 3;
 }
  
 message Response{

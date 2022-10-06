@@ -43,11 +43,11 @@ def handle_connection(connection: socket.socket):
         message.ParseFromString(data)
         
         if message.type == "DEVICE_JOIN":
-            threading.Thread(target= thread_recv_from_device, args=[connection]).start()
-            update_device(message)
+            update_device(message, connection, CREATE_DEVICE)
+            threading.Thread(target= thread_recv_from_device, args=[connection, len(devices)-1]).start()
         elif message.type == "CLIENT_JOIN":
-            threading.Thread(target= thread_client, args=[connection]).start()
             clients.append(connection)
+            threading.Thread(target= thread_client, args=[connection]).start()
 
     except Exception as e:
         print(e)
@@ -61,13 +61,15 @@ def discovery_devices(server_udp: socket.socket):
 
 
 
-def thread_recv_from_device(device: socket.socket):
+def thread_recv_from_device(device: socket.socket, index_device):
     while True:
         try:
             message = message_pb2.Message()
             data = device.recv(BUFFER_SIZE)
             message.ParseFromString(data)
             
+            if message.type == "UPDATE_DEVICE":
+                update_device(message, device, index_device)
         except Exception as e:
             print(e)
 
@@ -89,6 +91,7 @@ def thread_client(client: socket.socket):
                         res = response.devices.add()
                         res.id = device['id']
                         res.name = device['name']
+                        res.on = device['on']
                         res.sensor.name = device['sensor']['name']
                         res.sensor.value = device['sensor']['value']
 
@@ -97,6 +100,13 @@ def thread_client(client: socket.socket):
                             a.id = action['id']
                             a.name = action['name']
                     client.send(response.SerializeToString())
+
+            if message.type == "POST":
+                if message.request.name == "action":
+                    device = search_device(message.request.idDevice)
+                    print(device['name'])
+                    if device:
+                        device['socket'].send(message.SerializeToString())
 
             
         except Exception as e:
@@ -119,38 +129,43 @@ def search_device(id: int):
     return None
 
 
-def update_device(message):
+def update_device(message, connection, index):
     global devices
-    new_device = {
-        'id': message.device.id,
-        'name': message.device.name,
-        'sensor': {
-            'name': message.device.sensor.name,
-            'value': message.device.sensor.value
-        },
-        'actions': []
-    }
-    for action in message.device.actions[:]:
-        new_device["actions"].append({
-            'id':action.id,
-            'name':action.name
-        })
-    devices.append(new_device)
-    # else:
-    #     devices[index] = {
-    #         'id': message.device.id,
-    #         'name': message.device.name,
-    #         'sensor': {
-    #             'name': message.device.sensor.name,
-    #             'value': message.device.sensor.value
-    #         },
-    #         'actions': []
-    #     }
-    #     for action in message.device.actions:
-    #         new_device["actions"].append({
-    #             'id':action.id,
-    #             'name':action.name
-    #         })
+    if index == CREATE_DEVICE:
+        new_device = {
+            'id': message.device.id,
+            'name': message.device.name,
+            'on': message.device.on,
+            'sensor': {
+                'name': message.device.sensor.name,
+                'value': message.device.sensor.value
+            },
+            'actions': [],
+            'socket': connection
+        }
+        for action in message.device.actions[:]:
+            new_device["actions"].append({
+                'id':action.id,
+                'name':action.name
+            })
+        devices.append(new_device)
+    else:
+        devices[index] = {
+            'id': message.device.id,
+            'name': message.device.name,
+            'on': message.device.on,
+            'sensor': {
+                'name': message.device.sensor.name,
+                'value': message.device.sensor.value
+            },
+            'actions': [],
+            'socket': connection
+        }
+        for action in message.device.actions:
+            devices[index]["actions"].append({
+                'id':action.id,
+                'name':action.name
+            })
 
 
 main()

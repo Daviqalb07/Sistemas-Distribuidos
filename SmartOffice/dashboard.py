@@ -1,3 +1,4 @@
+import os
 import socket
 import sys
 import time
@@ -21,26 +22,32 @@ def main():
         print(e)
         sys.exit(1)
     
+    while True:
+        request = message_pb2.Message()
+        request.type = "GET"
+        request.request.name = "devices"
+        dashboard_sock.send(request.SerializeToString())
 
-    request = message_pb2.Message()
-    request.type = "GET"
-    request.request.name = "devices"
-    dashboard_sock.send(request.SerializeToString())
+        data = dashboard_sock.recv(BUFFER_SIZE)
+        response = message_pb2.Response()
+        response.ParseFromString(data)
 
-    data = dashboard_sock.recv(BUFFER_SIZE)
-    response = message_pb2.Response()
-    response.ParseFromString(data)
+        clear_terminal()
+        for device in response.devices:
+            print(f"Device: {device.name}")
+            print(f"\tid: {device.id}")
+            print(f"\tAtivo: {'Sim' if device.on else 'Não'}")
+            print("\tSensor:")
+            print(f"\t\tNome: {device.sensor.name}")
+            print(f"\t\tValor: {device.sensor.value}")
+            print("\tAções possíveis:")
+            for action in device.actions:
+                print(f"\t\t{action.id} - {action.name}")
+            print()
+        
+        time.sleep(1)
 
-    for device in response.devices:
-        print(f"Device: {device.name}")
-        print(f"\tid: {device.id}")
-        print("\tSensor:")
-        print(f"\t\tNome: {device.sensor.name}")
-        print(f"\t\tValor: {device.sensor.value}")
-        print("\tAções possíveis:")
-        for action in device.actions:
-            print(f"\t\t{action.id} - {action.name}")
-        print()
-
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 main()

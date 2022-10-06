@@ -25,25 +25,13 @@ def main():
     request = message_pb2.Message()
     request.type = "POST"
     request.request.name = "action"
-    request.request.idDevice = 2
+    request.request.idDevice = 1
+    action = int(input("Qual id da ação que deseja realizar: "))
+    request.request.idAction = action
     control_sock.send(request.SerializeToString())
 
-    data = control_sock.recv(BUFFER_SIZE)
-    response = message_pb2.Response()
-    response.ParseFromString(data)
-
-
-    action = int(input("Qual ação deseja realizar: "))
-    # for device in response.devices:
-    #     print(f"Device: {device.name}")
-    #     print(f"\tid: {device.id}")
-    #     print("\tSensor:")
-    #     print(f"\t\tNome: {device.sensor.name}")
-    #     print(f"\t\tValor: {device.sensor.value}")
-    #     print("\tAções possíveis:")
-    #     for action in device.actions:
-    #         print(f"\t\t{action.id} - {action.name}")
-    #     print()
-
+    # data = control_sock.recv(BUFFER_SIZE)
+    # response = message_pb2.Response()
+    # response.ParseFromString(data)
 
 main()
