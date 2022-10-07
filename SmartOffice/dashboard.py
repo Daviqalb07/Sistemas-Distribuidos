@@ -2,7 +2,7 @@ import os
 import socket
 import sys
 import time
-import message_pb2
+import devices.protobuf.message_pb2 as message_pb2
 from properties import *
 
 def main():
@@ -33,6 +33,8 @@ def main():
         response.ParseFromString(data)
 
         clear_terminal()
+        print("------------------ SmartOffice ------------------")
+        print("\nEsses são os dispositivos conectados ao gateway:\n")
         for device in response.devices:
             print(f"Device: {device.name}")
             print(f"\tid: {device.id}")

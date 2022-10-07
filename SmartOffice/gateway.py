@@ -1,7 +1,7 @@
 import socket
 import sys
 import threading
-import message_pb2 
+import devices.protobuf.message_pb2 as message_pb2 
 from properties import *
 
 
@@ -33,7 +33,14 @@ def main():
         
         except:
             break
-        
+
+
+
+def discovery_devices(server_udp: socket.socket):
+    server_udp.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
+    while True:
+        server_udp.sendto(bytes(f"{GATEWAY_ADDRESS} {GATEWAY_PORT}", encoding='utf-8'), ("224.1.1.1", 5001))
+
 
 
 def handle_connection(connection: socket.socket):
@@ -54,14 +61,8 @@ def handle_connection(connection: socket.socket):
 
 
 
-def discovery_devices(server_udp: socket.socket):
-    server_udp.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
-    while True:
-        server_udp.sendto(bytes(f"{GATEWAY_ADDRESS} {GATEWAY_PORT}", encoding='utf-8'), ("224.1.1.1", 5001))
-
-
-
 def thread_recv_from_device(device: socket.socket, index_device):
+    global devices
     while True:
         try:
             message = message_pb2.Message()
@@ -70,8 +71,13 @@ def thread_recv_from_device(device: socket.socket, index_device):
             
             if message.type == "UPDATE_DEVICE":
                 update_device(message, device, index_device)
+                print(f"len(devices) = {len(devices)}")
+            elif message.type == "REMOVE_DEVICE":
+                devices.pop(index_device)
+                print(f"len(devices) = {len(devices)}")
         except Exception as e:
             print(e)
+
 
 
 def thread_client(client: socket.socket):
@@ -104,13 +110,13 @@ def thread_client(client: socket.socket):
             if message.type == "POST":
                 if message.request.name == "action":
                     device = search_device(message.request.idDevice)
-                    print(device['name'])
                     if device:
                         device['socket'].send(message.SerializeToString())
 
             
         except Exception as e:
             print(e)
+
 
 
 def thread_send(sock: socket.socket, data):
@@ -120,6 +126,7 @@ def thread_send(sock: socket.socket, data):
         print(e)
 
 
+
 def search_device(id: int):
     global devices
     for i in range(len(devices)):
@@ -127,6 +134,7 @@ def search_device(id: int):
             return devices[i]
     
     return None
+
 
 
 def update_device(message, connection, index):
@@ -166,6 +174,7 @@ def update_device(message, connection, index):
                 'id':action.id,
                 'name':action.name
             })
+
 
 
 main()

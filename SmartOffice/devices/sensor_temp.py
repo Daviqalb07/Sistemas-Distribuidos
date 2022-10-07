@@ -8,23 +8,22 @@ class SensorTemp(Device):
     def __init__(self, id: int, multicast_ip: str, multicast_port: int, atributo, actions) -> None:
         super().__init__(id, "Sensor de Temperatura", multicast_ip, multicast_port, atributo, actions)
     
+    
     def change_temp(self):
         while True:
-            sleep(8)
-            temp = int(random.uniform(15, 35))
-            self.atributo['value'] = temp
+            if self.on:    
+                sleep(8)
+                temp = int(random.uniform(15, 35))
+                self.atributo['value'] = temp
 
-            self.response_update()
+                self.response_update()
         
 
     def do_it(self):
         if any(self.action_flags):
             if self.action_flags[0]:
-                self.on = False
+                self.on = not self.on
                 self.action_flags[0] = False
-            if self.action_flags[1]:
-                self.on = True
-                self.action_flags[1] = False
             
             self.response_update()
 
@@ -36,11 +35,7 @@ atributo = {
 actions = []
 actions.append({
     'id': 0,
-    'name': 'ligar'
-})
-actions.append({
-    'id': 1,
-    'name': 'desligar'
+    'name': 'ligar/desligar'
 })
 
 device = SensorTemp(id=4, multicast_ip="224.1.1.1", multicast_port=5001, 

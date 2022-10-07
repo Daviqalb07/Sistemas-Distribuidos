@@ -20,12 +20,6 @@ message Device{
     repeated Action actions = 5;
 }
 
-// message Measurement{
-//     int32 id = 1;
-//     string name = 2;
-//     float value = 3;
-// }
-
 message Request{
     string name = 1;
     int32 idDevice = 2;
@@ -40,10 +34,8 @@ message Message {
     string type = 1;
     oneof content{
         Device device = 2;
-        // Measurement measurement = 3;
-        Action action = 4;
-        Request request = 5;
-        // Response response = 6;
+        Request request = 3;
+        Response response = 4;
     }
 }
 

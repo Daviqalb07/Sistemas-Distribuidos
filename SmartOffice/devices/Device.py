@@ -1,9 +1,10 @@
 import struct
 import socket
-import message_pb2
-from properties import BUFFER_SIZE
-# 224 - 239
+import sys
+import protobuf.message_pb2 as message_pb2
 
+# 224 - 239
+BUFFER_SIZE = 1024
 
 class Device:
     def __init__(self, id: int, name: str, multicast_ip: str, multicast_port: int, atributo, actions) -> None:
@@ -13,7 +14,7 @@ class Device:
         self.multicast_port = multicast_port
         self.atributo = atributo
         self.actions = actions
-        self.action_flags = [0 for i in range(len(actions))]
+        self.action_flags = [0 for i in range(len(actions))] # uma flag para sinalizar um KeyboarInterrupt
         self.on = True
 
         server_ip, server_port = self.get_gateway_address()
@@ -62,6 +63,7 @@ class Device:
                     id_action = request.request.idAction
                     if self.search_action(id_action):
                         self.action_flags[id_action] = True
+            
 
 
 
