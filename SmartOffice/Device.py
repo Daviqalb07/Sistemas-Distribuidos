@@ -6,12 +6,12 @@ from properties import BUFFER_SIZE
 
 
 class Device:
-    def __init__(self, id: int, name: str, multicast_ip: str, multicast_port: int, sensor, actions) -> None:
+    def __init__(self, id: int, name: str, multicast_ip: str, multicast_port: int, atributo, actions) -> None:
         self.id = id
         self.name = name
         self.multicast_ip = multicast_ip
         self.multicast_port = multicast_port
-        self.sensor = sensor
+        self.atributo = atributo
         self.actions = actions
         self.action_flags = [0 for i in range(len(actions))]
         self.on = True
@@ -38,8 +38,8 @@ class Device:
         message_join.device.id = self.id
         message_join.device.name = self.name
         message_join.device.on = self.on
-        message_join.device.sensor.name = self.sensor['name']
-        message_join.device.sensor.value = self.sensor['value']
+        message_join.device.atributo.name = self.atributo['name']
+        message_join.device.atributo.value = self.atributo['value']
 
         for action in self.actions:
             act = message_join.device.actions.add()
@@ -77,8 +77,8 @@ class Device:
         message_update.device.id = self.id
         message_update.device.name = self.name
         message_update.device.on = self.on
-        message_update.device.sensor.name = self.sensor['name']
-        message_update.device.sensor.value = self.sensor['value']
+        message_update.device.atributo.name = self.atributo['name']
+        message_update.device.atributo.value = self.atributo['value']
 
         for action in self.actions:
             act = message_update.device.actions.add()

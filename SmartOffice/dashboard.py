@@ -37,9 +37,9 @@ def main():
             print(f"Device: {device.name}")
             print(f"\tid: {device.id}")
             print(f"\tAtivo: {'Sim' if device.on else 'Não'}")
-            print("\tSensor:")
-            print(f"\t\tNome: {device.sensor.name}")
-            print(f"\t\tValor: {device.sensor.value}")
+            print("\tAtributo:")
+            print(f"\t\tNome: {device.atributo.name}")
+            print(f"\t\tValor: {device.atributo.value}")
             print("\tAções possíveis:")
             for action in device.actions:
                 print(f"\t\t{action.id} - {action.name}")

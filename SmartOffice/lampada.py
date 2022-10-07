@@ -2,8 +2,8 @@ import threading
 from Device import *
 
 class Lampada(Device):
-    def __init__(self, id: int, multicast_ip: str, multicast_port: int, sensor, actions) -> None:
-        super().__init__(id, "Lampada", multicast_ip, multicast_port, sensor, actions)
+    def __init__(self, id: int, multicast_ip: str, multicast_port: int, atributo, actions) -> None:
+        super().__init__(id, "Lampada", multicast_ip, multicast_port, atributo, actions)
     
     def do_it(self):
         if any(self.action_flags):
@@ -15,7 +15,7 @@ class Lampada(Device):
                 self.action_flags[1] = False
             
             self.response_update()
-sensor = {
+atributo = {
     'name': 'presenca',
     'value': 1
 }
@@ -29,7 +29,7 @@ actions.append({
     'name': 'acender'
 })
 device = Lampada(id=1, multicast_ip="224.1.1.1", multicast_port=5001, 
-                sensor= sensor, actions = actions)
+                atributo= atributo, actions = actions)
 
 threading.Thread(target= device.handle_connection).start()
 

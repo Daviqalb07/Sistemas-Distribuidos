@@ -1,55 +1,53 @@
+import random
 import threading
+from time import sleep
 from Device import *
 
 
-class ArCondicionado(Device):
+class SensorTemp(Device):
     def __init__(self, id: int, multicast_ip: str, multicast_port: int, atributo, actions) -> None:
-        super().__init__(id, "Ar Condicionado", multicast_ip, multicast_port, atributo, actions)
+        super().__init__(id, "Sensor de Temperatura", multicast_ip, multicast_port, atributo, actions)
     
+    def change_temp(self):
+        while True:
+            sleep(8)
+            temp = int(random.uniform(15, 35))
+            self.atributo['value'] = temp
+
+            self.response_update()
+        
+
     def do_it(self):
         if any(self.action_flags):
             if self.action_flags[0]:
-                self.atributo['value'] += 1
+                self.on = False
                 self.action_flags[0] = False
             if self.action_flags[1]:
-                self.atributo['value'] -= 1
-                self.action_flags[1] = False
-            if self.action_flags[2]:
                 self.on = True
-                self.action_flags[2] = False
-            if self.action_flags[3]:
-                self.on = False
-                self.action_flags[3] = False
+                self.action_flags[1] = False
             
             self.response_update()
 
 
 atributo = {
     'name': 'temperatura',
-    'value': 24
+    'value': int(random.uniform(15,35))
 }
 actions = []
 actions.append({
     'id': 0,
-    'name': 'aumentar 1ºC'
-})
-actions.append({
-    'id': 1,
-    'name': 'diminuir 1ºC'
-})
-actions.append({
-    'id': 2,
     'name': 'ligar'
 })
 actions.append({
-    'id': 3,
+    'id': 1,
     'name': 'desligar'
 })
 
-device = ArCondicionado(id=3, multicast_ip="224.1.1.1", multicast_port=5001, 
+device = SensorTemp(id=4, multicast_ip="224.1.1.1", multicast_port=5001, 
                 atributo= atributo, actions = actions)
 
 threading.Thread(target= device.handle_connection).start()
+threading.Thread(target=device.change_temp).start()
 
 while True:
     device.do_it()

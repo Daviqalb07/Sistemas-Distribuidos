@@ -1,7 +1,7 @@
 import socket
 import sys
 import threading
-import message_pb2
+import message_pb2 
 from properties import *
 
 
@@ -92,8 +92,8 @@ def thread_client(client: socket.socket):
                         res.id = device['id']
                         res.name = device['name']
                         res.on = device['on']
-                        res.sensor.name = device['sensor']['name']
-                        res.sensor.value = device['sensor']['value']
+                        res.atributo.name = device['atributo']['name']
+                        res.atributo.value = device['atributo']['value']
 
                         for action in device['actions']:
                             a = res.actions.add()
@@ -136,9 +136,9 @@ def update_device(message, connection, index):
             'id': message.device.id,
             'name': message.device.name,
             'on': message.device.on,
-            'sensor': {
-                'name': message.device.sensor.name,
-                'value': message.device.sensor.value
+            'atributo': {
+                'name': message.device.atributo.name,
+                'value': message.device.atributo.value
             },
             'actions': [],
             'socket': connection
@@ -154,9 +154,9 @@ def update_device(message, connection, index):
             'id': message.device.id,
             'name': message.device.name,
             'on': message.device.on,
-            'sensor': {
-                'name': message.device.sensor.name,
-                'value': message.device.sensor.value
+            'atributo': {
+                'name': message.device.atributo.name,
+                'value': message.device.atributo.value
             },
             'actions': [],
             'socket': connection
