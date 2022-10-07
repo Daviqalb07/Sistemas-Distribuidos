@@ -71,10 +71,7 @@ def thread_recv_from_device(device: socket.socket, index_device):
             
             if message.type == "UPDATE_DEVICE":
                 update_device(message, device, index_device)
-                print(f"len(devices) = {len(devices)}")
-            elif message.type == "REMOVE_DEVICE":
-                devices.pop(index_device)
-                print(f"len(devices) = {len(devices)}")
+            
         except Exception as e:
             print(e)
 
