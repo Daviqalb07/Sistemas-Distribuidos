@@ -33,6 +33,19 @@ class Control(message_pb2_grpc.GreeterServicer):
         response.Status = False      
         return response
     
+    def OnHumid(self, request, context):
+        print("Requisição recebida: ")
+        print(request)
+        response = message_pb2.Response()
+        response.Status = True      
+        return response
+
+    def OffHumid(self, request, context):
+        print("Requisição recebida: ")
+        print(request)
+        response = message_pb2.Response()
+        response.Status = False      
+        return response
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

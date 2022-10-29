@@ -10,27 +10,39 @@ def run():
             print("2 - Desligar a Lâmapda")
             print("3 - Ligar o Ar Condicionado")
             print("4 - Desligar o Ar Condicionado")
+            print("5 - Ligar o Umidificador")
+            print("6 - Desligar o Umidificador")
             OptionSelect = input("Selecione qual método deseja utilizar: ")
             if(OptionSelect == '1'):
                 # Enviar valor do Sensor
-                request = message_pb2.Request(Percent = 60) 
+                request = message_pb2.Request(Value = 60) 
                 response = stub.OnLamp(request)
                 print(f"O Status da Lâmpada: {response.Status}")
             elif(OptionSelect == '2'):
                 # Enviar valor do Sensor
-                request = message_pb2.Request(Percent = 10)
+                request = message_pb2.Request(Value = 10)
                 response = stub.OffLamp(request)
                 print(f"O Status da Lâmpada: {response.Status}")
             elif(OptionSelect == '3'):
                 # Enviar valor do Sensor
-                request = message_pb2.Request(Percent = 30) 
+                request = message_pb2.Request(Value = 30) 
                 response = stub.OnAirCond(request)
-                print(f"O Status da Ar Condicionado: {response.Status}")
+                print(f"O Status do Ar Condicionado: {response.Status}")
             elif(OptionSelect == '4'):
                 # Enviar valor do Sensor
-                request = message_pb2.Request(Percent = 30)
+                request = message_pb2.Request(Value = 20)
                 response = stub.OffAirCond(request)
-                print(f"O Status da Ar Condicionado: {response.Status}")
+                print(f"O Status do Ar Condicionado: {response.Status}")
+            elif(OptionSelect == '5'):
+                # Enviar valor do Sensor
+                request = message_pb2.Request(Value = 70) 
+                response = stub.OnHumid(request)
+                print(f"O Status do Umidificador: {response.Status}")
+            elif(OptionSelect == '6'):
+                # Enviar valor do Sensor
+                request = message_pb2.Request(Value = 20)
+                response = stub.OffHumid(request)
+                print(f"O Status do Umidificador: {response.Status}")
             else:
                 print("Método Inexistente")
                 break

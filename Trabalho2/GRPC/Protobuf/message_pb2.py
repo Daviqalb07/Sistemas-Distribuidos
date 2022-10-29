@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rmessage.proto\x12\x0bSmartOffice\"\x1a\n\x07Request\x12\x0f\n\x07Percent\x18\x01 \x01(\x02\"\x1a\n\x08Response\x12\x0e\n\x06Status\x18\x01 \x01(\x08\x32\xf5\x01\n\x07Greeter\x12\x37\n\x06OnLamp\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12\x38\n\x07OffLamp\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12:\n\tOnAirCond\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12;\n\nOffAirCond\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rmessage.proto\x12\x0bSmartOffice\"\x18\n\x07Request\x12\r\n\x05Value\x18\x01 \x01(\x02\"\x1a\n\x08Response\x12\x0e\n\x06Status\x18\x01 \x01(\x08\x32\xea\x02\n\x07Greeter\x12\x37\n\x06OnLamp\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12\x38\n\x07OffLamp\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12\x38\n\x07OnHumid\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12\x39\n\x08OffHumid\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12:\n\tOnAirCond\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12;\n\nOffAirCond\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'message_pb2', globals())
@@ -21,9 +21,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   _REQUEST._serialized_start=30
-  _REQUEST._serialized_end=56
-  _RESPONSE._serialized_start=58
-  _RESPONSE._serialized_end=84
-  _GREETER._serialized_start=87
-  _GREETER._serialized_end=332
+  _REQUEST._serialized_end=54
+  _RESPONSE._serialized_start=56
+  _RESPONSE._serialized_end=82
+  _GREETER._serialized_start=85
+  _GREETER._serialized_end=447
 # @@protoc_insertion_point(module_scope)

@@ -5,12 +5,14 @@ package SmartOffice;
 service Greeter{
     rpc OnLamp (Request) returns (Response) {}
     rpc OffLamp (Request) returns (Response) {}
+    rpc OnHumid (Request) returns (Response) {}
+    rpc OffHumid (Request) returns (Response) {}
     rpc OnAirCond (Request) returns (Response) {}
     rpc OffAirCond (Request) returns (Response) {}
 }
 
 message Request{
-    float Percent = 1;
+    float Value = 1;
 }
 message Response{
     bool Status = 1;
