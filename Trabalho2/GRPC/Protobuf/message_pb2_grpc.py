@@ -4,7 +4,6 @@ import grpc
 
 import Protobuf.message_pb2 as message__pb2
 
-
 class GreeterStub(object):
     """Missing associated documentation comment in .proto file."""
 

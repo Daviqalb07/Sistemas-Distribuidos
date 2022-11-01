@@ -6,8 +6,8 @@ def run():
     with grpc.insecure_channel('localhost:8282') as channel:
         stub = message_pb2_grpc.GreeterStub(channel)
         while True:
-            print("1 - Ligar a Lâmapda")
-            print("2 - Desligar a Lâmapda")
+            print("1 - Ligar a Lâmpada")
+            print("2 - Desligar a Lâmpada")
             print("3 - Ligar o Ar Condicionado")
             print("4 - Desligar o Ar Condicionado")
             print("5 - Ligar o Umidificador")

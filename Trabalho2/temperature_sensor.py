@@ -15,6 +15,7 @@ while True:
     try:
         send = {
             'tipo': 'sensor',
+            'id': 1,
             'nome':'temperatura',
             'valor': round(uniform(15, 35), 2)
         }
