@@ -2,7 +2,8 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import Protobuf.message_pb2 as message__pb2
+from Protobuf import message_pb2 as Protobuf_dot_message__pb2
+
 
 class GreeterStub(object):
     """Missing associated documentation comment in .proto file."""
@@ -15,33 +16,33 @@ class GreeterStub(object):
         """
         self.OnLamp = channel.unary_unary(
                 '/SmartOffice.Greeter/OnLamp',
-                request_serializer=message__pb2.Request.SerializeToString,
-                response_deserializer=message__pb2.Response.FromString,
+                request_serializer=Protobuf_dot_message__pb2.Request.SerializeToString,
+                response_deserializer=Protobuf_dot_message__pb2.Response.FromString,
                 )
         self.OffLamp = channel.unary_unary(
                 '/SmartOffice.Greeter/OffLamp',
-                request_serializer=message__pb2.Request.SerializeToString,
-                response_deserializer=message__pb2.Response.FromString,
+                request_serializer=Protobuf_dot_message__pb2.Request.SerializeToString,
+                response_deserializer=Protobuf_dot_message__pb2.Response.FromString,
                 )
         self.OnHumid = channel.unary_unary(
                 '/SmartOffice.Greeter/OnHumid',
-                request_serializer=message__pb2.Request.SerializeToString,
-                response_deserializer=message__pb2.Response.FromString,
+                request_serializer=Protobuf_dot_message__pb2.Request.SerializeToString,
+                response_deserializer=Protobuf_dot_message__pb2.Response.FromString,
                 )
         self.OffHumid = channel.unary_unary(
                 '/SmartOffice.Greeter/OffHumid',
-                request_serializer=message__pb2.Request.SerializeToString,
-                response_deserializer=message__pb2.Response.FromString,
+                request_serializer=Protobuf_dot_message__pb2.Request.SerializeToString,
+                response_deserializer=Protobuf_dot_message__pb2.Response.FromString,
                 )
         self.OnAirCond = channel.unary_unary(
                 '/SmartOffice.Greeter/OnAirCond',
-                request_serializer=message__pb2.Request.SerializeToString,
-                response_deserializer=message__pb2.Response.FromString,
+                request_serializer=Protobuf_dot_message__pb2.Request.SerializeToString,
+                response_deserializer=Protobuf_dot_message__pb2.Response.FromString,
                 )
         self.OffAirCond = channel.unary_unary(
                 '/SmartOffice.Greeter/OffAirCond',
-                request_serializer=message__pb2.Request.SerializeToString,
-                response_deserializer=message__pb2.Response.FromString,
+                request_serializer=Protobuf_dot_message__pb2.Request.SerializeToString,
+                response_deserializer=Protobuf_dot_message__pb2.Response.FromString,
                 )
 
 
@@ -89,33 +90,33 @@ def add_GreeterServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnLamp': grpc.unary_unary_rpc_method_handler(
                     servicer.OnLamp,
-                    request_deserializer=message__pb2.Request.FromString,
-                    response_serializer=message__pb2.Response.SerializeToString,
+                    request_deserializer=Protobuf_dot_message__pb2.Request.FromString,
+                    response_serializer=Protobuf_dot_message__pb2.Response.SerializeToString,
             ),
             'OffLamp': grpc.unary_unary_rpc_method_handler(
                     servicer.OffLamp,
-                    request_deserializer=message__pb2.Request.FromString,
-                    response_serializer=message__pb2.Response.SerializeToString,
+                    request_deserializer=Protobuf_dot_message__pb2.Request.FromString,
+                    response_serializer=Protobuf_dot_message__pb2.Response.SerializeToString,
             ),
             'OnHumid': grpc.unary_unary_rpc_method_handler(
                     servicer.OnHumid,
-                    request_deserializer=message__pb2.Request.FromString,
-                    response_serializer=message__pb2.Response.SerializeToString,
+                    request_deserializer=Protobuf_dot_message__pb2.Request.FromString,
+                    response_serializer=Protobuf_dot_message__pb2.Response.SerializeToString,
             ),
             'OffHumid': grpc.unary_unary_rpc_method_handler(
                     servicer.OffHumid,
-                    request_deserializer=message__pb2.Request.FromString,
-                    response_serializer=message__pb2.Response.SerializeToString,
+                    request_deserializer=Protobuf_dot_message__pb2.Request.FromString,
+                    response_serializer=Protobuf_dot_message__pb2.Response.SerializeToString,
             ),
             'OnAirCond': grpc.unary_unary_rpc_method_handler(
                     servicer.OnAirCond,
-                    request_deserializer=message__pb2.Request.FromString,
-                    response_serializer=message__pb2.Response.SerializeToString,
+                    request_deserializer=Protobuf_dot_message__pb2.Request.FromString,
+                    response_serializer=Protobuf_dot_message__pb2.Response.SerializeToString,
             ),
             'OffAirCond': grpc.unary_unary_rpc_method_handler(
                     servicer.OffAirCond,
-                    request_deserializer=message__pb2.Request.FromString,
-                    response_serializer=message__pb2.Response.SerializeToString,
+                    request_deserializer=Protobuf_dot_message__pb2.Request.FromString,
+                    response_serializer=Protobuf_dot_message__pb2.Response.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -139,8 +140,8 @@ class Greeter(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Greeter/OnLamp',
-            message__pb2.Request.SerializeToString,
-            message__pb2.Response.FromString,
+            Protobuf_dot_message__pb2.Request.SerializeToString,
+            Protobuf_dot_message__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -156,8 +157,8 @@ class Greeter(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Greeter/OffLamp',
-            message__pb2.Request.SerializeToString,
-            message__pb2.Response.FromString,
+            Protobuf_dot_message__pb2.Request.SerializeToString,
+            Protobuf_dot_message__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -173,8 +174,8 @@ class Greeter(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Greeter/OnHumid',
-            message__pb2.Request.SerializeToString,
-            message__pb2.Response.FromString,
+            Protobuf_dot_message__pb2.Request.SerializeToString,
+            Protobuf_dot_message__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -190,8 +191,8 @@ class Greeter(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Greeter/OffHumid',
-            message__pb2.Request.SerializeToString,
-            message__pb2.Response.FromString,
+            Protobuf_dot_message__pb2.Request.SerializeToString,
+            Protobuf_dot_message__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -207,8 +208,8 @@ class Greeter(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Greeter/OnAirCond',
-            message__pb2.Request.SerializeToString,
-            message__pb2.Response.FromString,
+            Protobuf_dot_message__pb2.Request.SerializeToString,
+            Protobuf_dot_message__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -224,7 +225,7 @@ class Greeter(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Greeter/OffAirCond',
-            message__pb2.Request.SerializeToString,
-            message__pb2.Response.FromString,
+            Protobuf_dot_message__pb2.Request.SerializeToString,
+            Protobuf_dot_message__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

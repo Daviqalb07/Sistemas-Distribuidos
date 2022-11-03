@@ -5,8 +5,8 @@ import sys
 from threading import Thread
 
 import grpc
-import GRPC.Protobuf.message_pb2 as message_pb2
-import GRPC.Protobuf.message_pb2_grpc as message_pb2_grpc
+import Protobuf.message_pb2 as message_pb2
+import Protobuf.message_pb2_grpc as message_pb2_grpc
 
 HOME_ASSISTANT_ADDRESS = 'localhost'
 HOME_ASSISTANT_PORT = 8181
@@ -100,3 +100,4 @@ def thread_recv_client(client: socket.socket):
                 print(e)
                 break
 
+main ()
