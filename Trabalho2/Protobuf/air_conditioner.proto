@@ -1,0 +1,16 @@
+syntax="proto3";
+
+package SmartOffice;
+
+service AirConditioner{
+    rpc OnOffAirCond (RequestAirConditioner) returns (ResponseAirConditioner) {}
+    rpc UpperTemp (RequestAirConditioner) returns (ResponseAirConditioner) {}
+    rpc LowerTemp (RequestAirConditioner) returns (ResponseAirConditioner) {}
+}
+
+message RequestAirConditioner{
+    float Value = 1;
+}
+message ResponseAirConditioner{
+    int32 status = 1;
+}

@@ -1,8 +1,7 @@
 import socket
 import sys
 
-HOME_ASSISTANT_ADDRESS = 'localhost'
-HOME_ASSISTANT_PORT = 8181
+from properties import *
 def main():
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -11,7 +10,7 @@ def main():
         sys.exit(1)
     
     try:
-        client.connect((HOME_ASSISTANT_ADDRESS, HOME_ASSISTANT_PORT))
+        client.connect((HOME_ASSISTANT_HOST, HOME_ASSISTANT_PORT))
     except Exception as e:
         print(e)
         sys.exit(1)

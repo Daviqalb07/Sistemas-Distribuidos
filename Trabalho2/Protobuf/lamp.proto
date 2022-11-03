@@ -1,0 +1,15 @@
+syntax="proto3";
+
+package SmartOffice;
+
+service Lamp{
+    rpc OnLamp (Request) returns (Response) {}
+    rpc OffLamp (Request) returns (Response) {}
+}
+
+message Request{
+    float Value = 1;
+}
+message Response{
+    bool Status = 1;
+}

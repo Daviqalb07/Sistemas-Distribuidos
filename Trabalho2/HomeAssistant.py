@@ -8,15 +8,15 @@ import grpc
 import Protobuf.message_pb2 as message_pb2
 import Protobuf.message_pb2_grpc as message_pb2_grpc
 
-HOME_ASSISTANT_ADDRESS = 'localhost'
-HOME_ASSISTANT_PORT = 8181
-BUFF_SIZE = 1024
+import Protobuf.air_conditioner_pb2 as air_conditioner_pb2
+import Protobuf.air_conditioner_pb2_grpc as air_conditioner_pb2_grpc
 
+from properties import *
 
 def main():
     try:
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.bind((HOME_ASSISTANT_ADDRESS, HOME_ASSISTANT_PORT))
+        server.bind((HOME_ASSISTANT_HOST, HOME_ASSISTANT_PORT))
     except Exception as e:
         print(e)
         sys.exit(1)
@@ -51,7 +51,7 @@ def thread_queue(queue: str):
 
 def thread_recv_client(client: socket.socket):
     with grpc.insecure_channel('localhost:8282') as channel:
-        stub = message_pb2_grpc.GreeterStub(channel)
+        stub = air_conditioner_pb2_grpc.AirConditionerStub(channel)
         while True:
             try:
                 msg = client.recv(BUFF_SIZE).decode('utf-8')
@@ -70,15 +70,15 @@ def thread_recv_client(client: socket.socket):
 
                 elif(msg == '3'):
                     # Enviar valor do Sensor
-                    request = message_pb2.Request(Value = 30) 
-                    response = stub.OnAirCond(request)
-                    print(f"O Status do Ar Condicionado: {response.Status}")
+                    request = air_conditioner_pb2.RequestAirConditioner(Value = 30) 
+                    response = stub.OnOffAirCond(request)
+                    print(f"O Status do Ar Condicionado: {response.status}")
 
                 elif(msg == '4'):
                     # Enviar valor do Sensor
-                    request = message_pb2.Request(Value = 20)
-                    response = stub.OffAirCond(request)
-                    print(f"O Status do Ar Condicionado: {response.Status}")
+                    request = air_conditioner_pb2.RequestAirConditioner(Value = 20)
+                    response = stub.UpperTemp(request)
+                    print(f"Temperatura: {response.status}")
 
                 elif(msg == '5'):
                     # Enviar valor do Sensor
