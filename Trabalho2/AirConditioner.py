@@ -20,16 +20,18 @@ class AirConditioner:
 
     
     def UpperTemp(self, request, context):
-        self.temperature += 1
+        if self.on:
+            self.temperature += 1
 
         response = air_conditioner_pb2.ResponseTemperatureAirConditioner(temperature = self.temperature)
         return response
 
 
     def LowerTemp(self, request, context):
-        self.temperature -= 1
+        if self.on:
+            self.temperature -= 1
 
-        response = air_conditioner_pb2_grpc.ResponseTemperatureAirConditioner(temperature = self.temperature)
+        response = air_conditioner_pb2.ResponseTemperatureAirConditioner(temperature = self.temperature)
         return response
 
 

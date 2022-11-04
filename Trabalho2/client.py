@@ -16,12 +16,13 @@ def main():
         sys.exit(1)
     
     while True:
-        print("1 - Ligar a Lâmpada")
-        print("2 - Desligar a Lâmpada")
-        print("3 - Ligar o Ar Condicionado")
-        print("4 - Desligar o Ar Condicionado")
-        print("5 - Ligar o Umidificador")
-        print("6 - Desligar o Umidificador")
+        print("1 - Ligar/Desligar Lâmpada")
+        print("2 - Ligar/Desligar o Ar Condicionado")
+        print("3 - Aumentar temperatura do Ar Condicionado")
+        print("4 - Diminuir temperatura do Ar Condicionado")
+        print("5 - Ligar/Desligar o Umidificador")
+        print("6 - Velocidade alta do Umidificador")
+        print("7 - Velocidade baixa do Umidificador")
         option_select = input("Selecione qual método deseja utilizar: ")
 
         client.send(option_select.encode('utf-8'))

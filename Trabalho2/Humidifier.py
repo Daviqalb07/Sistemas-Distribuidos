@@ -23,13 +23,15 @@ class Humidifier:
 
 
     def HighVelocity(self, request, context):
-        self.velocity = HIGH_VELOCITY
+        if self.on:
+            self.velocity = HIGH_VELOCITY
         response = humidifier_pb2.ResponseVelocityHumidifier(velocity= self.velocity)
         return response
     
 
     def LowVelocity(self, request, context):
-        self.velocity = LOW_VELOCITY
+        if self.on:
+            self.velocity = LOW_VELOCITY
         response = humidifier_pb2.ResponseVelocityHumidifier(velocity= self.velocity)
         return response
 
