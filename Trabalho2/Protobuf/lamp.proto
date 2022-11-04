@@ -3,13 +3,12 @@ syntax="proto3";
 package SmartOffice;
 
 service Lamp{
-    rpc OnLamp (Request) returns (Response) {}
-    rpc OffLamp (Request) returns (Response) {}
+    rpc OnOffLamp (RequestLamp) returns (ResponseLamp) {}
 }
 
-message Request{
+message RequestLamp{
     float Value = 1;
 }
-message Response{
-    bool Status = 1;
+message ResponseLamp{
+    bool status = 1;
 }

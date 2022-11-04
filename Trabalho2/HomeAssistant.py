@@ -14,6 +14,9 @@ import Protobuf.air_conditioner_pb2_grpc as air_conditioner_pb2_grpc
 import Protobuf.humidifier_pb2 as humidifier_pb2
 import Protobuf.humidifier_pb2_grpc as humidifier_pb2_grpc
 
+import Protobuf.lamp_pb2 as lamp_pb2
+import Protobuf.lamp_pb2_grpc as lamp_pb2_grpc
+
 from properties import *
 
 def main():
@@ -53,17 +56,17 @@ def thread_queue(queue: str):
     channel.start_consuming()
 
 def thread_recv_client(client: socket.socket):
-    with grpc.insecure_channel('localhost:8183') as channel:
-        stub = humidifier_pb2_grpc.HumidifierStub(channel)
+    with grpc.insecure_channel('localhost:8184') as channel:
+        stub = lamp_pb2_grpc.LampStub(channel)
         while True:
             try:
                 msg = client.recv(BUFF_SIZE).decode('utf-8')
 
                 if(msg == '1'):
                     # Enviar valor do Sensor
-                    request = message_pb2.Request(Value = 60) 
-                    response = stub.OnLamp(request)
-                    print(f"O Status da Lâmpada: {response.temperature}")
+                    request = lamp_pb2.RequestLamp(Value = 60) 
+                    response = stub.OnOffLamp(request)
+                    print(f"O Status da Lâmpada: {response.status}")
 
                 elif(msg == '2'):
                     # Enviar valor do Sensor

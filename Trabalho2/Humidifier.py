@@ -18,7 +18,7 @@ class Humidifier:
     def OnOffHumidifier(self, request, context):
         self.on = not self.on
 
-        response = humidifier_pb2.ResponseStatusHumidifier(status = int(self.on))
+        response = humidifier_pb2.ResponseStatusHumidifier(status = self.on)
         return response
 
 

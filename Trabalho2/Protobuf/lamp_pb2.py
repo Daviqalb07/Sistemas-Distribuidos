@@ -13,17 +13,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nlamp.proto\x12\x0bSmartOffice\"\x18\n\x07Request\x12\r\n\x05Value\x18\x01 \x01(\x02\"\x1a\n\x08Response\x12\x0e\n\x06Status\x18\x01 \x01(\x08\x32y\n\x04Lamp\x12\x37\n\x06OnLamp\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12\x38\n\x07OffLamp\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nlamp.proto\x12\x0bSmartOffice\"\x1c\n\x0bRequestLamp\x12\r\n\x05Value\x18\x01 \x01(\x02\"\x1e\n\x0cResponseLamp\x12\x0e\n\x06status\x18\x01 \x01(\x08\x32J\n\x04Lamp\x12\x42\n\tOnOffLamp\x12\x18.SmartOffice.RequestLamp\x1a\x19.SmartOffice.ResponseLamp\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'lamp_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _REQUEST._serialized_start=27
-  _REQUEST._serialized_end=51
-  _RESPONSE._serialized_start=53
-  _RESPONSE._serialized_end=79
-  _LAMP._serialized_start=81
-  _LAMP._serialized_end=202
+  _REQUESTLAMP._serialized_start=27
+  _REQUESTLAMP._serialized_end=55
+  _RESPONSELAMP._serialized_start=57
+  _RESPONSELAMP._serialized_end=87
+  _LAMP._serialized_start=89
+  _LAMP._serialized_end=163
 # @@protoc_insertion_point(module_scope)
