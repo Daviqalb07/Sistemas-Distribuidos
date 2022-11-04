@@ -13,17 +13,19 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10humidifier.proto\x12\x0bSmartOffice\"\x18\n\x07Request\x12\r\n\x05Value\x18\x01 \x01(\x02\"\x1a\n\x08Response\x12\x0e\n\x06Status\x18\x01 \x01(\x08\x32\xc2\x01\n\nHumidifier\x12\x38\n\x07OnHumid\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12\x39\n\x08OffHumid\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x12?\n\x0e\x43hangeVelocity\x12\x14.SmartOffice.Request\x1a\x15.SmartOffice.Response\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10humidifier.proto\x12\x0bSmartOffice\"\"\n\x11RequestHumidifier\x12\r\n\x05Value\x18\x01 \x01(\x02\"*\n\x18ResponseStatusHumidifier\x12\x0e\n\x06status\x18\x01 \x01(\x08\".\n\x1aResponseVelocityHumidifier\x12\x10\n\x08velocity\x18\x01 \x01(\x05\x32\x9d\x02\n\nHumidifier\x12Z\n\x0fOnOffHumidifier\x12\x1e.SmartOffice.RequestHumidifier\x1a%.SmartOffice.ResponseStatusHumidifier\"\x00\x12Y\n\x0cHighVelocity\x12\x1e.SmartOffice.RequestHumidifier\x1a\'.SmartOffice.ResponseVelocityHumidifier\"\x00\x12X\n\x0bLowVelocity\x12\x1e.SmartOffice.RequestHumidifier\x1a\'.SmartOffice.ResponseVelocityHumidifier\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'humidifier_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _REQUEST._serialized_start=33
-  _REQUEST._serialized_end=57
-  _RESPONSE._serialized_start=59
-  _RESPONSE._serialized_end=85
-  _HUMIDIFIER._serialized_start=88
-  _HUMIDIFIER._serialized_end=282
+  _REQUESTHUMIDIFIER._serialized_start=33
+  _REQUESTHUMIDIFIER._serialized_end=67
+  _RESPONSESTATUSHUMIDIFIER._serialized_start=69
+  _RESPONSESTATUSHUMIDIFIER._serialized_end=111
+  _RESPONSEVELOCITYHUMIDIFIER._serialized_start=113
+  _RESPONSEVELOCITYHUMIDIFIER._serialized_end=159
+  _HUMIDIFIER._serialized_start=162
+  _HUMIDIFIER._serialized_end=447
 # @@protoc_insertion_point(module_scope)

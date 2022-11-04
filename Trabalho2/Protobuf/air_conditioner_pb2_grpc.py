@@ -17,17 +17,17 @@ class AirConditionerStub(object):
         self.OnOffAirCond = channel.unary_unary(
                 '/SmartOffice.AirConditioner/OnOffAirCond',
                 request_serializer=air__conditioner__pb2.RequestAirConditioner.SerializeToString,
-                response_deserializer=air__conditioner__pb2.ResponseAirConditioner.FromString,
+                response_deserializer=air__conditioner__pb2.ResponseStatusAirConditioner.FromString,
                 )
         self.UpperTemp = channel.unary_unary(
                 '/SmartOffice.AirConditioner/UpperTemp',
                 request_serializer=air__conditioner__pb2.RequestAirConditioner.SerializeToString,
-                response_deserializer=air__conditioner__pb2.ResponseAirConditioner.FromString,
+                response_deserializer=air__conditioner__pb2.ResponseTemperatureAirConditioner.FromString,
                 )
         self.LowerTemp = channel.unary_unary(
                 '/SmartOffice.AirConditioner/LowerTemp',
                 request_serializer=air__conditioner__pb2.RequestAirConditioner.SerializeToString,
-                response_deserializer=air__conditioner__pb2.ResponseAirConditioner.FromString,
+                response_deserializer=air__conditioner__pb2.ResponseTemperatureAirConditioner.FromString,
                 )
 
 
@@ -58,17 +58,17 @@ def add_AirConditionerServicer_to_server(servicer, server):
             'OnOffAirCond': grpc.unary_unary_rpc_method_handler(
                     servicer.OnOffAirCond,
                     request_deserializer=air__conditioner__pb2.RequestAirConditioner.FromString,
-                    response_serializer=air__conditioner__pb2.ResponseAirConditioner.SerializeToString,
+                    response_serializer=air__conditioner__pb2.ResponseStatusAirConditioner.SerializeToString,
             ),
             'UpperTemp': grpc.unary_unary_rpc_method_handler(
                     servicer.UpperTemp,
                     request_deserializer=air__conditioner__pb2.RequestAirConditioner.FromString,
-                    response_serializer=air__conditioner__pb2.ResponseAirConditioner.SerializeToString,
+                    response_serializer=air__conditioner__pb2.ResponseTemperatureAirConditioner.SerializeToString,
             ),
             'LowerTemp': grpc.unary_unary_rpc_method_handler(
                     servicer.LowerTemp,
                     request_deserializer=air__conditioner__pb2.RequestAirConditioner.FromString,
-                    response_serializer=air__conditioner__pb2.ResponseAirConditioner.SerializeToString,
+                    response_serializer=air__conditioner__pb2.ResponseTemperatureAirConditioner.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -93,7 +93,7 @@ class AirConditioner(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.AirConditioner/OnOffAirCond',
             air__conditioner__pb2.RequestAirConditioner.SerializeToString,
-            air__conditioner__pb2.ResponseAirConditioner.FromString,
+            air__conditioner__pb2.ResponseStatusAirConditioner.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -110,7 +110,7 @@ class AirConditioner(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.AirConditioner/UpperTemp',
             air__conditioner__pb2.RequestAirConditioner.SerializeToString,
-            air__conditioner__pb2.ResponseAirConditioner.FromString,
+            air__conditioner__pb2.ResponseTemperatureAirConditioner.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -127,6 +127,6 @@ class AirConditioner(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.AirConditioner/LowerTemp',
             air__conditioner__pb2.RequestAirConditioner.SerializeToString,
-            air__conditioner__pb2.ResponseAirConditioner.FromString,
+            air__conditioner__pb2.ResponseTemperatureAirConditioner.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

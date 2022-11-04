@@ -11,6 +11,9 @@ import Protobuf.message_pb2_grpc as message_pb2_grpc
 import Protobuf.air_conditioner_pb2 as air_conditioner_pb2
 import Protobuf.air_conditioner_pb2_grpc as air_conditioner_pb2_grpc
 
+import Protobuf.humidifier_pb2 as humidifier_pb2
+import Protobuf.humidifier_pb2_grpc as humidifier_pb2_grpc
+
 from properties import *
 
 def main():
@@ -50,8 +53,8 @@ def thread_queue(queue: str):
     channel.start_consuming()
 
 def thread_recv_client(client: socket.socket):
-    with grpc.insecure_channel('localhost:8282') as channel:
-        stub = air_conditioner_pb2_grpc.AirConditionerStub(channel)
+    with grpc.insecure_channel('localhost:8183') as channel:
+        stub = humidifier_pb2_grpc.HumidifierStub(channel)
         while True:
             try:
                 msg = client.recv(BUFF_SIZE).decode('utf-8')
@@ -60,7 +63,7 @@ def thread_recv_client(client: socket.socket):
                     # Enviar valor do Sensor
                     request = message_pb2.Request(Value = 60) 
                     response = stub.OnLamp(request)
-                    print(f"O Status da Lâmpada: {response.Status}")
+                    print(f"O Status da Lâmpada: {response.temperature}")
 
                 elif(msg == '2'):
                     # Enviar valor do Sensor
@@ -78,19 +81,25 @@ def thread_recv_client(client: socket.socket):
                     # Enviar valor do Sensor
                     request = air_conditioner_pb2.RequestAirConditioner(Value = 20)
                     response = stub.UpperTemp(request)
-                    print(f"Temperatura: {response.status}")
+                    print(f"Temperatura: {response.temperature}")
 
                 elif(msg == '5'):
                     # Enviar valor do Sensor
-                    request = message_pb2.Request(Value = 70) 
-                    response = stub.OnHumid(request)
-                    print(f"O Status do Umidificador: {response.Status}")
+                    request = humidifier_pb2.RequestHumidifier(Value = 70) 
+                    response = stub.OnOffHumidifier(request)
+                    print(f"O Status do Umidificador: {response.status}")
 
                 elif(msg == '6'):
                     # Enviar valor do Sensor
-                    request = message_pb2.Request(Value = 20)
-                    response = stub.OffHumid(request)
-                    print(f"O Status do Umidificador: {response.Status}")
+                    request = humidifier_pb2.RequestHumidifier(Value = 20)
+                    response = stub.HighVelocity(request)
+                    print(f"Velocidade do Umidificador: {response.velocity}%")
+                
+                elif(msg == '7'):
+                    # Enviar valor do Sensor
+                    request = humidifier_pb2.RequestHumidifier(Value = 20)
+                    response = stub.LowVelocity(request)
+                    print(f"Velocidade do Umidificador: {response.velocity}%")
 
                 else:
                     print("Método Inexistente")

@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import humidifier_pb2 as humidifier__pb2
+import Protobuf.humidifier_pb2 as humidifier__pb2
 
 
 class HumidifierStub(object):
@@ -14,39 +14,39 @@ class HumidifierStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.OnHumid = channel.unary_unary(
-                '/SmartOffice.Humidifier/OnHumid',
-                request_serializer=humidifier__pb2.Request.SerializeToString,
-                response_deserializer=humidifier__pb2.Response.FromString,
+        self.OnOffHumidifier = channel.unary_unary(
+                '/SmartOffice.Humidifier/OnOffHumidifier',
+                request_serializer=humidifier__pb2.RequestHumidifier.SerializeToString,
+                response_deserializer=humidifier__pb2.ResponseStatusHumidifier.FromString,
                 )
-        self.OffHumid = channel.unary_unary(
-                '/SmartOffice.Humidifier/OffHumid',
-                request_serializer=humidifier__pb2.Request.SerializeToString,
-                response_deserializer=humidifier__pb2.Response.FromString,
+        self.HighVelocity = channel.unary_unary(
+                '/SmartOffice.Humidifier/HighVelocity',
+                request_serializer=humidifier__pb2.RequestHumidifier.SerializeToString,
+                response_deserializer=humidifier__pb2.ResponseVelocityHumidifier.FromString,
                 )
-        self.ChangeVelocity = channel.unary_unary(
-                '/SmartOffice.Humidifier/ChangeVelocity',
-                request_serializer=humidifier__pb2.Request.SerializeToString,
-                response_deserializer=humidifier__pb2.Response.FromString,
+        self.LowVelocity = channel.unary_unary(
+                '/SmartOffice.Humidifier/LowVelocity',
+                request_serializer=humidifier__pb2.RequestHumidifier.SerializeToString,
+                response_deserializer=humidifier__pb2.ResponseVelocityHumidifier.FromString,
                 )
 
 
 class HumidifierServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def OnHumid(self, request, context):
+    def OnOffHumidifier(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def OffHumid(self, request, context):
+    def HighVelocity(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ChangeVelocity(self, request, context):
+    def LowVelocity(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -55,20 +55,20 @@ class HumidifierServicer(object):
 
 def add_HumidifierServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'OnHumid': grpc.unary_unary_rpc_method_handler(
-                    servicer.OnHumid,
-                    request_deserializer=humidifier__pb2.Request.FromString,
-                    response_serializer=humidifier__pb2.Response.SerializeToString,
+            'OnOffHumidifier': grpc.unary_unary_rpc_method_handler(
+                    servicer.OnOffHumidifier,
+                    request_deserializer=humidifier__pb2.RequestHumidifier.FromString,
+                    response_serializer=humidifier__pb2.ResponseStatusHumidifier.SerializeToString,
             ),
-            'OffHumid': grpc.unary_unary_rpc_method_handler(
-                    servicer.OffHumid,
-                    request_deserializer=humidifier__pb2.Request.FromString,
-                    response_serializer=humidifier__pb2.Response.SerializeToString,
+            'HighVelocity': grpc.unary_unary_rpc_method_handler(
+                    servicer.HighVelocity,
+                    request_deserializer=humidifier__pb2.RequestHumidifier.FromString,
+                    response_serializer=humidifier__pb2.ResponseVelocityHumidifier.SerializeToString,
             ),
-            'ChangeVelocity': grpc.unary_unary_rpc_method_handler(
-                    servicer.ChangeVelocity,
-                    request_deserializer=humidifier__pb2.Request.FromString,
-                    response_serializer=humidifier__pb2.Response.SerializeToString,
+            'LowVelocity': grpc.unary_unary_rpc_method_handler(
+                    servicer.LowVelocity,
+                    request_deserializer=humidifier__pb2.RequestHumidifier.FromString,
+                    response_serializer=humidifier__pb2.ResponseVelocityHumidifier.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -81,7 +81,7 @@ class Humidifier(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def OnHumid(request,
+    def OnOffHumidifier(request,
             target,
             options=(),
             channel_credentials=None,
@@ -91,14 +91,14 @@ class Humidifier(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/OnHumid',
-            humidifier__pb2.Request.SerializeToString,
-            humidifier__pb2.Response.FromString,
+        return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/OnOffHumidifier',
+            humidifier__pb2.RequestHumidifier.SerializeToString,
+            humidifier__pb2.ResponseStatusHumidifier.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def OffHumid(request,
+    def HighVelocity(request,
             target,
             options=(),
             channel_credentials=None,
@@ -108,14 +108,14 @@ class Humidifier(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/OffHumid',
-            humidifier__pb2.Request.SerializeToString,
-            humidifier__pb2.Response.FromString,
+        return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/HighVelocity',
+            humidifier__pb2.RequestHumidifier.SerializeToString,
+            humidifier__pb2.ResponseVelocityHumidifier.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ChangeVelocity(request,
+    def LowVelocity(request,
             target,
             options=(),
             channel_credentials=None,
@@ -125,8 +125,8 @@ class Humidifier(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/ChangeVelocity',
-            humidifier__pb2.Request.SerializeToString,
-            humidifier__pb2.Response.FromString,
+        return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/LowVelocity',
+            humidifier__pb2.RequestHumidifier.SerializeToString,
+            humidifier__pb2.ResponseVelocityHumidifier.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

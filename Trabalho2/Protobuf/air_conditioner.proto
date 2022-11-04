@@ -3,14 +3,19 @@ syntax="proto3";
 package SmartOffice;
 
 service AirConditioner{
-    rpc OnOffAirCond (RequestAirConditioner) returns (ResponseAirConditioner) {}
-    rpc UpperTemp (RequestAirConditioner) returns (ResponseAirConditioner) {}
-    rpc LowerTemp (RequestAirConditioner) returns (ResponseAirConditioner) {}
+    rpc OnOffAirCond (RequestAirConditioner) returns (ResponseStatusAirConditioner) {}
+    rpc UpperTemp (RequestAirConditioner) returns (ResponseTemperatureAirConditioner) {}
+    rpc LowerTemp (RequestAirConditioner) returns (ResponseTemperatureAirConditioner) {}
 }
 
 message RequestAirConditioner{
     float Value = 1;
 }
-message ResponseAirConditioner{
-    int32 status = 1;
+
+message ResponseStatusAirConditioner{
+    bool status = 1;
+}
+
+message ResponseTemperatureAirConditioner{
+    int32 temperature = 1;
 }

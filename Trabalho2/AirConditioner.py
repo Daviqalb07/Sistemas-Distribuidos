@@ -5,29 +5,33 @@ import Protobuf.air_conditioner_pb2 as air_conditioner_pb2
 import Protobuf.air_conditioner_pb2_grpc as air_conditioner_pb2_grpc
 
 from properties import *
+
 class AirConditioner:
     def __init__(self, temperature: int) -> None:
         self.on = True
         self.temperature = temperature
 
+
     def OnOffAirCond(self, request, context):
         self.on = not self.on
 
-        response = air_conditioner_pb2.ResponseAirConditioner(status = int(self.on))
+        response = air_conditioner_pb2.ResponseStatusAirConditioner(status = int(self.on))
         return response
 
     
     def UpperTemp(self, request, context):
         self.temperature += 1
 
-        response = air_conditioner_pb2.ResponseAirConditioner(status = self.temperature)
+        response = air_conditioner_pb2.ResponseTemperatureAirConditioner(temperature = self.temperature)
         return response
+
 
     def LowerTemp(self, request, context):
         self.temperature -= 1
 
-        response = air_conditioner_pb2_grpc.ResponseAirConditioner(status = self.temperature)
+        response = air_conditioner_pb2_grpc.ResponseTemperatureAirConditioner(temperature = self.temperature)
         return response
+
 
 server = grpc.server(futures.ThreadPoolExecutor(max_workers= 10))
 air_conditioner_pb2_grpc.add_AirConditionerServicer_to_server(AirConditioner(24), server)
