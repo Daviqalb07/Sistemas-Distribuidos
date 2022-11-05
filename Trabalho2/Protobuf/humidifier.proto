@@ -6,14 +6,14 @@ service Humidifier{
     rpc OnOffHumidifier (RequestHumidifier) returns (ResponseHumidifier) {}
     rpc UpperHumid (RequestHumidifier) returns (ResponseHumidifier) {}
     rpc LowerHumid (RequestHumidifier) returns (ResponseHumidifier) {}
+    rpc GetHumidifierInfo (RequestHumidifier) returns (ResponseHumidifier) {}
 }
 
-message RequestHumidifier{
-    float Value = 1;
-}
+message RequestHumidifier {}
 
 message ResponseHumidifier{
-    string name = 1;
-    bool status = 2;
-    int32 humidity = 3;
+    string tipo = 1;
+    string name = 2;
+    bool status = 3;
+    int32 humidity = 4;
 }

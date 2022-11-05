@@ -4,12 +4,13 @@ package SmartOffice;
 
 service Lamp{
     rpc OnOffLamp (RequestLamp) returns (ResponseLamp) {}
+    rpc GetLampInfo (RequestLamp) returns (ResponseLamp) {}
 }
 
-message RequestLamp{
-    float Value = 1;
-}
+message RequestLamp {}
+
 message ResponseLamp{
-    string name = 1;
-    bool status = 2;
+    string tipo = 1;
+    string name = 2;
+    bool status = 3;
 }

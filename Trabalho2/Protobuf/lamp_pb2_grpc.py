@@ -19,6 +19,11 @@ class LampStub(object):
                 request_serializer=lamp__pb2.RequestLamp.SerializeToString,
                 response_deserializer=lamp__pb2.ResponseLamp.FromString,
                 )
+        self.GetLampInfo = channel.unary_unary(
+                '/SmartOffice.Lamp/GetLampInfo',
+                request_serializer=lamp__pb2.RequestLamp.SerializeToString,
+                response_deserializer=lamp__pb2.ResponseLamp.FromString,
+                )
 
 
 class LampServicer(object):
@@ -30,11 +35,22 @@ class LampServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetLampInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_LampServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnOffLamp': grpc.unary_unary_rpc_method_handler(
                     servicer.OnOffLamp,
+                    request_deserializer=lamp__pb2.RequestLamp.FromString,
+                    response_serializer=lamp__pb2.ResponseLamp.SerializeToString,
+            ),
+            'GetLampInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLampInfo,
                     request_deserializer=lamp__pb2.RequestLamp.FromString,
                     response_serializer=lamp__pb2.ResponseLamp.SerializeToString,
             ),
@@ -60,6 +76,23 @@ class Lamp(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Lamp/OnOffLamp',
+            lamp__pb2.RequestLamp.SerializeToString,
+            lamp__pb2.ResponseLamp.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetLampInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SmartOffice.Lamp/GetLampInfo',
             lamp__pb2.RequestLamp.SerializeToString,
             lamp__pb2.ResponseLamp.FromString,
             options, channel_credentials,

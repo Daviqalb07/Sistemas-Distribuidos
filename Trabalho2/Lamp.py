@@ -26,8 +26,12 @@ class Lamp:
         response = self.GenerateResponse()
         return response
 
+    def GetAirCondInfo(self, request, context):
+        return self.GenerateResponse()
+        
     def GenerateResponse(self):
         response = lamp_pb2.ResponseLamp(
+            tipo= "device",
             name= "Lâmpada",
             status= self.on
         )

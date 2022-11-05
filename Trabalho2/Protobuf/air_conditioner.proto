@@ -6,14 +6,15 @@ service AirConditioner{
     rpc OnOffAirCond (RequestAirConditioner) returns (ResponseAirConditioner) {}
     rpc UpperTemp (RequestAirConditioner) returns (ResponseAirConditioner) {}
     rpc LowerTemp (RequestAirConditioner) returns (ResponseAirConditioner) {}
+    rpc GetAirCondInfo (RequestAirConditioner) returns (ResponseAirConditioner) {}
 }
 
-message RequestAirConditioner{
-    float Value = 1;
-}
+
+message RequestAirConditioner {}
 
 message ResponseAirConditioner{
-    string name = 1;
-    bool status = 2;
-    int32 temperature = 3;
+    string tipo = 1;
+    string name = 2;
+    bool status = 3;
+    int32 temperature = 4;
 }

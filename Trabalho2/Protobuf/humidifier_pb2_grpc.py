@@ -29,6 +29,11 @@ class HumidifierStub(object):
                 request_serializer=humidifier__pb2.RequestHumidifier.SerializeToString,
                 response_deserializer=humidifier__pb2.ResponseHumidifier.FromString,
                 )
+        self.GetHumidifierInfo = channel.unary_unary(
+                '/SmartOffice.Humidifier/GetHumidifierInfo',
+                request_serializer=humidifier__pb2.RequestHumidifier.SerializeToString,
+                response_deserializer=humidifier__pb2.ResponseHumidifier.FromString,
+                )
 
 
 class HumidifierServicer(object):
@@ -52,6 +57,12 @@ class HumidifierServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetHumidifierInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_HumidifierServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -67,6 +78,11 @@ def add_HumidifierServicer_to_server(servicer, server):
             ),
             'LowerHumid': grpc.unary_unary_rpc_method_handler(
                     servicer.LowerHumid,
+                    request_deserializer=humidifier__pb2.RequestHumidifier.FromString,
+                    response_serializer=humidifier__pb2.ResponseHumidifier.SerializeToString,
+            ),
+            'GetHumidifierInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetHumidifierInfo,
                     request_deserializer=humidifier__pb2.RequestHumidifier.FromString,
                     response_serializer=humidifier__pb2.ResponseHumidifier.SerializeToString,
             ),
@@ -126,6 +142,23 @@ class Humidifier(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/LowerHumid',
+            humidifier__pb2.RequestHumidifier.SerializeToString,
+            humidifier__pb2.ResponseHumidifier.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetHumidifierInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/GetHumidifierInfo',
             humidifier__pb2.RequestHumidifier.SerializeToString,
             humidifier__pb2.ResponseHumidifier.FromString,
             options, channel_credentials,

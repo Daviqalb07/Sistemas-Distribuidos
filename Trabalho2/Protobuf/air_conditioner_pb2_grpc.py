@@ -29,6 +29,11 @@ class AirConditionerStub(object):
                 request_serializer=air__conditioner__pb2.RequestAirConditioner.SerializeToString,
                 response_deserializer=air__conditioner__pb2.ResponseAirConditioner.FromString,
                 )
+        self.GetAirCondInfo = channel.unary_unary(
+                '/SmartOffice.AirConditioner/GetAirCondInfo',
+                request_serializer=air__conditioner__pb2.RequestAirConditioner.SerializeToString,
+                response_deserializer=air__conditioner__pb2.ResponseAirConditioner.FromString,
+                )
 
 
 class AirConditionerServicer(object):
@@ -52,6 +57,12 @@ class AirConditionerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetAirCondInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AirConditionerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -67,6 +78,11 @@ def add_AirConditionerServicer_to_server(servicer, server):
             ),
             'LowerTemp': grpc.unary_unary_rpc_method_handler(
                     servicer.LowerTemp,
+                    request_deserializer=air__conditioner__pb2.RequestAirConditioner.FromString,
+                    response_serializer=air__conditioner__pb2.ResponseAirConditioner.SerializeToString,
+            ),
+            'GetAirCondInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAirCondInfo,
                     request_deserializer=air__conditioner__pb2.RequestAirConditioner.FromString,
                     response_serializer=air__conditioner__pb2.ResponseAirConditioner.SerializeToString,
             ),
@@ -126,6 +142,23 @@ class AirConditioner(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.AirConditioner/LowerTemp',
+            air__conditioner__pb2.RequestAirConditioner.SerializeToString,
+            air__conditioner__pb2.ResponseAirConditioner.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetAirCondInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SmartOffice.AirConditioner/GetAirCondInfo',
             air__conditioner__pb2.RequestAirConditioner.SerializeToString,
             air__conditioner__pb2.ResponseAirConditioner.FromString,
             options, channel_credentials,

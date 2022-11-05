@@ -40,8 +40,12 @@ class Humidifier:
         response = self.GenerateResponse()
         return response
     
+    def GetHumidifierInfo(self, request, context):
+        return self.GenerateResponse()
+        
     def GenerateResponse(self):
         response = humidifier_pb2.ResponseHumidifier(
+            tipo= "device",
             name= "Umidificador",
             status= self.on,
             humidity= self.humidity

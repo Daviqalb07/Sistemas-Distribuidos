@@ -43,8 +43,12 @@ class AirConditioner:
         response = self.GenerateResponse()
         return response
 
+    def GetAirCondInfo(self, request, context):
+        return self.GenerateResponse()
+
     def GenerateResponse(self):
         response = air_conditioner_pb2.ResponseAirConditioner(
+            tipo= "device",
             name= "Ar-condicionado",
             status= self.on,
             temperature= self.temperature
