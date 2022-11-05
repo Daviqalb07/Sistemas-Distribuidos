@@ -19,7 +19,7 @@ import Protobuf.lamp_pb2_grpc as lamp_pb2_grpc
 
 from properties import *
 
-
+clients = []
 
 def main():
     try:
@@ -41,17 +41,22 @@ def main():
     server.listen()
     while True:
         client, _ = server.accept()
+        clients.append(client)
         Thread(target= thread_recv_client, args= [client]).start()
 
 
-
+    
 
 def callback(ch, method, properties, body):
     print(f"[x] mensagem recebida: {pickle.loads(body)}")
 
+
 def callback_temperature(ch, method, properties, body):
-    sensor_info = pickle.loads(body)
-    print(f"[x] Temperatura: {sensor_info['valor']}")
+    global clients
+
+    for client in clients:
+        client.send(body)
+
 
 def thread_queue(queue: str, callback_function):
     connection = pika.BlockingConnection(
