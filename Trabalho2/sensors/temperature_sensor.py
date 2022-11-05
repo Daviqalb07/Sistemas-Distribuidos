@@ -1,9 +1,9 @@
 import pika
 import pickle
-from numpy.random import uniform, normal
+from numpy.random import normal
 
 
-class TemperatureSensor():
+class TemperatureSensor:
     def __init__(self, mean_temp, sd_temp):
         self.mean_temp = mean_temp
         self.sd_temp = sd_temp
@@ -21,12 +21,13 @@ class TemperatureSensor():
 
     
     def sense(self):
-            self.temperature = int(normal(self.mean_temp, self.sd_temp))
+            self.temperature = round(normal(self.mean_temp, self.sd_temp))
             send = {
                 'tipo': 'sensor',
                 'id': 1,
-                'nome':'temperatura',
-                'valor': self.temperature 
+                'nome':'Temperatura',
+                'valor': self.temperature,
+                'unidade': '°C'
             }
             self.channel.basic_publish(exchange='', routing_key= 'temperature', body=pickle.dumps(send))
             print(f'enviado: {send}')

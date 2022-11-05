@@ -29,14 +29,16 @@ def thread_print():
     while True:
         for sensor in sensors:
             print(f"[x] Sensor: {sensor['nome']}")
-            print(f"\t Valor: {sensor['valor']}")
+            print(f"\t Valor: {sensor['valor']} {sensor['unidade']}")
+
+        print()
         print("1 - Ligar/Desligar Lâmpada")
         print("2 - Ligar/Desligar o Ar Condicionado")
         print("3 - Aumentar temperatura do Ar Condicionado")
         print("4 - Diminuir temperatura do Ar Condicionado")
         print("5 - Ligar/Desligar o Umidificador")
-        print("6 - Velocidade alta do Umidificador")
-        print("7 - Velocidade baixa do Umidificador\n")
+        print("6 - Aumentar umidificação")
+        print("7 - Diminuir umidificação\n")
 
         clear_terminal()
 
@@ -60,7 +62,8 @@ def thread_recv(client:socket.socket):
                     sensors.append({
                         'id': json['id'],
                         'nome': json['nome'],
-                        'valor': json['valor']
+                        'valor': json['valor'],
+                        'unidade': json['unidade']
                     })
 
                 else:

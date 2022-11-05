@@ -14,6 +14,7 @@ class AirConditioner:
         self.on = True
         self.temperature = temperature
         self.sensor = sensor
+        self.sensor.set_mean_temp(self.temperature)
 
 
     def OnOffAirCond(self, request, context):

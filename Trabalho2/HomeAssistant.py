@@ -29,7 +29,7 @@ def main():
         print(e)
         sys.exit(1)
 
-    temperature_thread = Thread(target= thread_queue, args= ['temperature', callback_temperature])
+    temperature_thread = Thread(target= thread_queue, args= ['temperature', callback])
     temperature_thread.start()
 
     humidity_thread = Thread(target= thread_queue, args= ['humidity', callback])
@@ -48,10 +48,6 @@ def main():
     
 
 def callback(ch, method, properties, body):
-    print(f"[x] mensagem recebida: {pickle.loads(body)}")
-
-
-def callback_temperature(ch, method, properties, body):
     global clients
 
     for client in clients:
@@ -114,14 +110,14 @@ def thread_recv_client(client: socket.socket):
             elif(msg == '6'):
                 # Enviar valor do Sensor
                 request = humidifier_pb2.RequestHumidifier(Value = 20)
-                response = stub_humidifier.HighVelocity(request)
-                print(f"Velocidade do Umidificador: {response.velocity}%")
+                response = stub_humidifier.UpperHumid(request)
+                print(f"Velocidade do Umidificador: {response.humidity}%")
             
             elif(msg == '7'):
                 # Enviar valor do Sensor
                 request = humidifier_pb2.RequestHumidifier(Value = 20)
-                response = stub_humidifier.LowVelocity(request)
-                print(f"Velocidade do Umidificador: {response.velocity}%")
+                response = stub_humidifier.LowerHumid(request)
+                print(f"Velocidade do Umidificador: {response.humidity}%")
 
             else:
                 print("Método Inexistente")

@@ -1,27 +1,40 @@
 import pika
-import time
 import pickle
-from numpy.random import uniform
+from numpy.random import normal
 
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host= 'localhost')
-)
+class HumiditySensor:
+    def __init__(self, mean_humidity, sd_humidity):
+        self.mean_humidity = mean_humidity
+        self.sd_humidity = sd_humidity
 
-channel = connection.channel()
-channel.queue_declare(queue= 'humidity')
+    def connect_to_rabbitmq(self):
+        self.connection = pika.BlockingConnection(
+            pika.ConnectionParameters(host= 'localhost')
+        )
 
+        self.channel = self.connection.channel()
+        self.channel.queue_declare(queue= 'humidity')
 
-while True:
-    try:
-        send = {
-            'tipo': 'sensor',
-            'id': 2,
-            'nome':'umidade',
-            'valor': round(uniform(0, 100), 2)
-        }
-        channel.basic_publish(exchange='', routing_key= 'humidity', body=pickle.dumps(send))
-        print(f'enviado: {send}')
-        time.sleep(5)
-    except:
-        break
-connection.close()
+    def sense(self):
+            self.humidity = round(normal(self.mean_humidity, self.sd_humidity))
+            send = {
+                'tipo': 'sensor',
+                'id': 2,
+                'nome':'Umidade',
+                'valor': self.humidity,
+                'unidade': '%'
+            }
+            self.channel.basic_publish(exchange='', routing_key= 'temperature', body=pickle.dumps(send))
+            print(f'enviado: {send}')
+
+    def terminate_sense(self):
+        self.connection.close()
+
+    def set_mean_humidity(self, mean_humidity):
+        self.mean_humidity = mean_humidity
+    
+    def get_mean_humidity(self):
+        return self.mean_humidity
+    
+    def get_sd_humidity(self):
+        return self.sd_humidity

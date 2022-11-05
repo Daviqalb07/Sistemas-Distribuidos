@@ -4,8 +4,8 @@ package SmartOffice;
 
 service Humidifier{
     rpc OnOffHumidifier (RequestHumidifier) returns (ResponseStatusHumidifier) {}
-    rpc HighVelocity (RequestHumidifier) returns (ResponseVelocityHumidifier) {}
-    rpc LowVelocity (RequestHumidifier) returns (ResponseVelocityHumidifier) {}
+    rpc UpperHumid (RequestHumidifier) returns (ResponseHumidityHumidifier) {}
+    rpc LowerHumid (RequestHumidifier) returns (ResponseHumidityHumidifier) {}
 }
 
 message RequestHumidifier{
@@ -16,6 +16,6 @@ message ResponseStatusHumidifier{
     bool status = 1;
 }
 
-message ResponseVelocityHumidifier{
-    int32 velocity = 1;
+message ResponseHumidityHumidifier{
+    int32 Humidity = 1;
 }

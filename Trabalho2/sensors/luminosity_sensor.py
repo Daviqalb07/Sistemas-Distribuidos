@@ -1,28 +1,47 @@
 import pika
 import time
 import pickle
-from numpy.random import uniform
+from numpy.random import normal
 
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host= 'localhost')
-)
+class LuminositySensor:
+    def __init__(self, mean_luminosity, sd_luminosity):
+        self.mean_luminosity = mean_luminosity
+        self.sd_luminosity = sd_luminosity
 
-channel = connection.channel()
-channel.queue_declare(queue= 'luminosity')
+        self.connect_to_rabbitmq()
+    
+    
+    def connect_to_rabbitmq(self):
+        self.connection = pika.BlockingConnection(
+            pika.ConnectionParameters(host= 'localhost')
+        )
 
+        self.channel = self.connection.channel()
+        self.channel.queue_declare(queue= 'luminosity')
 
-while True:
-    try:
-        send = {
-            'tipo': 'sensor',
-            'id': 3,
-            'nome':'luminosidade',
-            'valor': round(uniform(0, 100), 2)
-        }
-        channel.basic_publish(exchange='', routing_key= 'luminosity', body=pickle.dumps(send))
-        print(f'enviado: {send}')
-        time.sleep(5)
-    except:
-        break
+    
+    def sense(self):
+            self.luminosity = round(normal(self.mean_luminosity, self.sd_luminosity))
+            send = {
+                'tipo': 'sensor',
+                'id': 3,
+                'nome':'Luminosidade',
+                'valor': self.luminosity,
+                'unidade': '%'
+            }
+            self.channel.basic_publish(exchange='', routing_key= 'luminosity', body=pickle.dumps(send))
+            print(f'enviado: {send}')
 
-connection.close()
+    
+    def terminate_sense(self):
+        self.connection.close()
+    
+    
+    def set_mean_luminosity(self, mean_luminosity):
+        self.mean_luminosity = mean_luminosity
+    
+    def get_mean_luminosity(self):
+        return self.mean_luminosity
+    
+    def get_sd_luminosity(self):
+        return self.sd_luminosity
