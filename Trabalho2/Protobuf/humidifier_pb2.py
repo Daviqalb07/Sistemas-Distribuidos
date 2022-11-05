@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10humidifier.proto\x12\x0bSmartOffice\"\"\n\x11RequestHumidifier\x12\r\n\x05Value\x18\x01 \x01(\x02\"*\n\x18ResponseStatusHumidifier\x12\x0e\n\x06status\x18\x01 \x01(\x08\".\n\x1aResponseHumidityHumidifier\x12\x10\n\x08Humidity\x18\x01 \x01(\x05\x32\x9a\x02\n\nHumidifier\x12Z\n\x0fOnOffHumidifier\x12\x1e.SmartOffice.RequestHumidifier\x1a%.SmartOffice.ResponseStatusHumidifier\"\x00\x12W\n\nUpperHumid\x12\x1e.SmartOffice.RequestHumidifier\x1a\'.SmartOffice.ResponseHumidityHumidifier\"\x00\x12W\n\nLowerHumid\x12\x1e.SmartOffice.RequestHumidifier\x1a\'.SmartOffice.ResponseHumidityHumidifier\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10humidifier.proto\x12\x0bSmartOffice\"\"\n\x11RequestHumidifier\x12\r\n\x05Value\x18\x01 \x01(\x02\"D\n\x12ResponseHumidifier\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\x08\x12\x10\n\x08humidity\x18\x03 \x01(\x05\x32\x84\x02\n\nHumidifier\x12T\n\x0fOnOffHumidifier\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x12O\n\nUpperHumid\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x12O\n\nLowerHumid\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'humidifier_pb2', globals())
@@ -22,10 +22,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   _REQUESTHUMIDIFIER._serialized_start=33
   _REQUESTHUMIDIFIER._serialized_end=67
-  _RESPONSESTATUSHUMIDIFIER._serialized_start=69
-  _RESPONSESTATUSHUMIDIFIER._serialized_end=111
-  _RESPONSEHUMIDITYHUMIDIFIER._serialized_start=113
-  _RESPONSEHUMIDITYHUMIDIFIER._serialized_end=159
-  _HUMIDIFIER._serialized_start=162
-  _HUMIDIFIER._serialized_end=444
+  _RESPONSEHUMIDIFIER._serialized_start=69
+  _RESPONSEHUMIDIFIER._serialized_end=137
+  _HUMIDIFIER._serialized_start=140
+  _HUMIDIFIER._serialized_end=400
 # @@protoc_insertion_point(module_scope)

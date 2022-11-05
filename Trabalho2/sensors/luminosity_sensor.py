@@ -22,6 +22,12 @@ class LuminositySensor:
     
     def sense(self):
             self.luminosity = round(normal(self.mean_luminosity, self.sd_luminosity))
+
+            if self.luminosity > 100:
+                self.luminosity = 100
+            elif self.luminosity < 0:
+                self.luminosity = 0
+
             send = {
                 'tipo': 'sensor',
                 'id': 3,

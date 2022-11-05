@@ -17,6 +17,12 @@ class HumiditySensor:
 
     def sense(self):
             self.humidity = round(normal(self.mean_humidity, self.sd_humidity))
+            
+            if self.humidity > 100:
+                self.humidity = 100
+            if self.humidity < 0:
+                self.humidity = 0
+                
             send = {
                 'tipo': 'sensor',
                 'id': 2,

@@ -3,19 +3,17 @@ syntax="proto3";
 package SmartOffice;
 
 service Humidifier{
-    rpc OnOffHumidifier (RequestHumidifier) returns (ResponseStatusHumidifier) {}
-    rpc UpperHumid (RequestHumidifier) returns (ResponseHumidityHumidifier) {}
-    rpc LowerHumid (RequestHumidifier) returns (ResponseHumidityHumidifier) {}
+    rpc OnOffHumidifier (RequestHumidifier) returns (ResponseHumidifier) {}
+    rpc UpperHumid (RequestHumidifier) returns (ResponseHumidifier) {}
+    rpc LowerHumid (RequestHumidifier) returns (ResponseHumidifier) {}
 }
 
 message RequestHumidifier{
     float Value = 1;
 }
 
-message ResponseStatusHumidifier{
-    bool status = 1;
-}
-
-message ResponseHumidityHumidifier{
-    int32 Humidity = 1;
+message ResponseHumidifier{
+    string name = 1;
+    bool status = 2;
+    int32 humidity = 3;
 }

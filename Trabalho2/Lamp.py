@@ -23,7 +23,14 @@ class Lamp:
         else:
             self.sensor.set_mean_luminosity(20)
 
-        response = lamp_pb2.ResponseLamp(status = self.on)
+        response = self.GenerateResponse()
+        return response
+
+    def GenerateResponse(self):
+        response = lamp_pb2.ResponseLamp(
+            name= "Lâmpada",
+            status= self.on
+        )
         return response
 
 def sense(sensor: LuminositySensor):

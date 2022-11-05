@@ -10,5 +10,6 @@ message RequestLamp{
     float Value = 1;
 }
 message ResponseLamp{
-    bool status = 1;
+    string name = 1;
+    bool status = 2;
 }

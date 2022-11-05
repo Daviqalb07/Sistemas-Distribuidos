@@ -21,8 +21,8 @@ def main():
         sys.exit(1)
     
 
-    Thread(target= thread_print).start()
-    Thread(target= thread_input).start()
+    #Thread(target= thread_print).start()
+    Thread(target= thread_input, args= [client]).start()
     Thread(target= thread_recv, args= [client]).start()
 
 def thread_print():
@@ -39,14 +39,28 @@ def thread_print():
         print("5 - Ligar/Desligar o Umidificador")
         print("6 - Aumentar umidificação")
         print("7 - Diminuir umidificação\n")
-
+        
         clear_terminal()
 
 
 def thread_input(client: socket.socket):
     while True:    
+        for sensor in sensors:
+            print(f"[x] Sensor: {sensor['nome']}")
+            print(f"\t Valor: {sensor['valor']} {sensor['unidade']}")
+
+        print()
+        print("1 - Ligar/Desligar Lâmpada")
+        print("2 - Ligar/Desligar o Ar Condicionado")
+        print("3 - Aumentar temperatura do Ar Condicionado")
+        print("4 - Diminuir temperatura do Ar Condicionado")
+        print("5 - Ligar/Desligar o Umidificador")
+        print("6 - Aumentar umidificação")
+        print("7 - Diminuir umidificação\n")
+        
         option_select = input("Selecione qual método deseja utilizar: ")
         client.send(option_select.encode('utf-8'))
+        clear_terminal()
 
 
 def thread_recv(client:socket.socket):

@@ -20,7 +20,7 @@ class AirConditioner:
     def OnOffAirCond(self, request, context):
         self.on = not self.on
 
-        response = air_conditioner_pb2.ResponseStatusAirConditioner(status = int(self.on))
+        response = self.GenerateResponse()
         return response
 
     
@@ -30,7 +30,7 @@ class AirConditioner:
 
             self.sensor.set_mean_temp(self.temperature)
 
-        response = air_conditioner_pb2.ResponseTemperatureAirConditioner(temperature= self.temperature)
+        response = self.GenerateResponse()
         return response
 
 
@@ -40,9 +40,16 @@ class AirConditioner:
 
             self.sensor.set_mean_temp(self.temperature)
 
-        response = air_conditioner_pb2.ResponseTemperatureAirConditioner(temperature = self.temperature)
+        response = self.GenerateResponse()
         return response
 
+    def GenerateResponse(self):
+        response = air_conditioner_pb2.ResponseAirConditioner(
+            name= "Ar-condicionado",
+            status= self.on,
+            temperature= self.temperature
+        )
+        return response
 
 def sense(sensor: TemperatureSensor):
     sensor.connect_to_rabbitmq()

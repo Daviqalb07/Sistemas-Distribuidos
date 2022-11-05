@@ -19,25 +19,33 @@ class Humidifier:
     def OnOffHumidifier(self, request, context):
         self.on = not self.on
 
-        response = humidifier_pb2.ResponseStatusHumidifier(status = self.on)
+        response = self.GenerateResponse()
         return response
 
 
     def UpperHumid(self, request, context):
         if self.on:
-            self.humidity += 10
-
-            self.sensor.set_mean_humidity(self.humidity)
-        response = humidifier_pb2.ResponseVelocityHumidifier(humidity= self.humidity)
+            if self.humidity < 100:
+                self.humidity += 10
+                self.sensor.set_mean_humidity(self.humidity)
+        response = self.GenerateResponse()
         return response
     
 
     def LowerHumid(self, request, context):
         if self.on:
-            self.humidity -= 10
-
-            self.sensor.set_mean_humidity(self.humidity)
-        response = humidifier_pb2.ResponseVelocityHumidifier(humidity= self.humidity)
+            if self.humidity > 0:
+                self.humidity -= 10
+                self.sensor.set_mean_humidity(self.humidity)
+        response = self.GenerateResponse()
+        return response
+    
+    def GenerateResponse(self):
+        response = humidifier_pb2.ResponseHumidifier(
+            name= "Umidificador",
+            status= self.on,
+            humidity= self.humidity
+        )
         return response
 
 def sense(sensor: HumiditySensor):

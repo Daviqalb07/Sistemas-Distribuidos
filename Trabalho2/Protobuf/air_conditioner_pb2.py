@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15\x61ir_conditioner.proto\x12\x0bSmartOffice\"&\n\x15RequestAirConditioner\x12\r\n\x05Value\x18\x01 \x01(\x02\".\n\x1cResponseStatusAirConditioner\x12\x0e\n\x06status\x18\x01 \x01(\x08\"8\n!ResponseTemperatureAirConditioner\x12\x13\n\x0btemperature\x18\x01 \x01(\x05\x32\xb7\x02\n\x0e\x41irConditioner\x12_\n\x0cOnOffAirCond\x12\".SmartOffice.RequestAirConditioner\x1a).SmartOffice.ResponseStatusAirConditioner\"\x00\x12\x61\n\tUpperTemp\x12\".SmartOffice.RequestAirConditioner\x1a..SmartOffice.ResponseTemperatureAirConditioner\"\x00\x12\x61\n\tLowerTemp\x12\".SmartOffice.RequestAirConditioner\x1a..SmartOffice.ResponseTemperatureAirConditioner\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15\x61ir_conditioner.proto\x12\x0bSmartOffice\"&\n\x15RequestAirConditioner\x12\r\n\x05Value\x18\x01 \x01(\x02\"K\n\x16ResponseAirConditioner\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\x08\x12\x13\n\x0btemperature\x18\x03 \x01(\x05\x32\x9b\x02\n\x0e\x41irConditioner\x12Y\n\x0cOnOffAirCond\x12\".SmartOffice.RequestAirConditioner\x1a#.SmartOffice.ResponseAirConditioner\"\x00\x12V\n\tUpperTemp\x12\".SmartOffice.RequestAirConditioner\x1a#.SmartOffice.ResponseAirConditioner\"\x00\x12V\n\tLowerTemp\x12\".SmartOffice.RequestAirConditioner\x1a#.SmartOffice.ResponseAirConditioner\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'air_conditioner_pb2', globals())
@@ -22,10 +22,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   _REQUESTAIRCONDITIONER._serialized_start=38
   _REQUESTAIRCONDITIONER._serialized_end=76
-  _RESPONSESTATUSAIRCONDITIONER._serialized_start=78
-  _RESPONSESTATUSAIRCONDITIONER._serialized_end=124
-  _RESPONSETEMPERATUREAIRCONDITIONER._serialized_start=126
-  _RESPONSETEMPERATUREAIRCONDITIONER._serialized_end=182
-  _AIRCONDITIONER._serialized_start=185
-  _AIRCONDITIONER._serialized_end=496
+  _RESPONSEAIRCONDITIONER._serialized_start=78
+  _RESPONSEAIRCONDITIONER._serialized_end=153
+  _AIRCONDITIONER._serialized_start=156
+  _AIRCONDITIONER._serialized_end=439
 # @@protoc_insertion_point(module_scope)

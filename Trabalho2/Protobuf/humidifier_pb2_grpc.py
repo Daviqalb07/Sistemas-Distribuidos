@@ -17,17 +17,17 @@ class HumidifierStub(object):
         self.OnOffHumidifier = channel.unary_unary(
                 '/SmartOffice.Humidifier/OnOffHumidifier',
                 request_serializer=humidifier__pb2.RequestHumidifier.SerializeToString,
-                response_deserializer=humidifier__pb2.ResponseStatusHumidifier.FromString,
+                response_deserializer=humidifier__pb2.ResponseHumidifier.FromString,
                 )
         self.UpperHumid = channel.unary_unary(
                 '/SmartOffice.Humidifier/UpperHumid',
                 request_serializer=humidifier__pb2.RequestHumidifier.SerializeToString,
-                response_deserializer=humidifier__pb2.ResponseHumidityHumidifier.FromString,
+                response_deserializer=humidifier__pb2.ResponseHumidifier.FromString,
                 )
         self.LowerHumid = channel.unary_unary(
                 '/SmartOffice.Humidifier/LowerHumid',
                 request_serializer=humidifier__pb2.RequestHumidifier.SerializeToString,
-                response_deserializer=humidifier__pb2.ResponseHumidityHumidifier.FromString,
+                response_deserializer=humidifier__pb2.ResponseHumidifier.FromString,
                 )
 
 
@@ -58,17 +58,17 @@ def add_HumidifierServicer_to_server(servicer, server):
             'OnOffHumidifier': grpc.unary_unary_rpc_method_handler(
                     servicer.OnOffHumidifier,
                     request_deserializer=humidifier__pb2.RequestHumidifier.FromString,
-                    response_serializer=humidifier__pb2.ResponseStatusHumidifier.SerializeToString,
+                    response_serializer=humidifier__pb2.ResponseHumidifier.SerializeToString,
             ),
             'UpperHumid': grpc.unary_unary_rpc_method_handler(
                     servicer.UpperHumid,
                     request_deserializer=humidifier__pb2.RequestHumidifier.FromString,
-                    response_serializer=humidifier__pb2.ResponseHumidityHumidifier.SerializeToString,
+                    response_serializer=humidifier__pb2.ResponseHumidifier.SerializeToString,
             ),
             'LowerHumid': grpc.unary_unary_rpc_method_handler(
                     servicer.LowerHumid,
                     request_deserializer=humidifier__pb2.RequestHumidifier.FromString,
-                    response_serializer=humidifier__pb2.ResponseHumidityHumidifier.SerializeToString,
+                    response_serializer=humidifier__pb2.ResponseHumidifier.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -93,7 +93,7 @@ class Humidifier(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/OnOffHumidifier',
             humidifier__pb2.RequestHumidifier.SerializeToString,
-            humidifier__pb2.ResponseStatusHumidifier.FromString,
+            humidifier__pb2.ResponseHumidifier.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -110,7 +110,7 @@ class Humidifier(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/UpperHumid',
             humidifier__pb2.RequestHumidifier.SerializeToString,
-            humidifier__pb2.ResponseHumidityHumidifier.FromString,
+            humidifier__pb2.ResponseHumidifier.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -127,6 +127,6 @@ class Humidifier(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/LowerHumid',
             humidifier__pb2.RequestHumidifier.SerializeToString,
-            humidifier__pb2.ResponseHumidityHumidifier.FromString,
+            humidifier__pb2.ResponseHumidifier.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
