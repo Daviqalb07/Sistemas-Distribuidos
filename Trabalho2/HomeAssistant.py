@@ -29,13 +29,13 @@ def main():
         print(e)
         sys.exit(1)
 
-    temperature_thread = Thread(target= thread_queue, args= ['temperature'])
+    temperature_thread = Thread(target= thread_queue, args= ['temperature', callback_temperature])
     temperature_thread.start()
 
-    humidity_thread = Thread(target= thread_queue, args= ['humidity'])
+    humidity_thread = Thread(target= thread_queue, args= ['humidity', callback])
     humidity_thread.start()
 
-    luminosity_thread = Thread(target= thread_queue, args= ['luminosity'])
+    luminosity_thread = Thread(target= thread_queue, args= ['luminosity', callback])
     luminosity_thread.start()
 
     server.listen()
@@ -49,16 +49,18 @@ def main():
 def callback(ch, method, properties, body):
     print(f"[x] mensagem recebida: {pickle.loads(body)}")
 
+def callback_temperature(ch, method, properties, body):
+    sensor_info = pickle.loads(body)
+    print(f"[x] Temperatura: {sensor_info['valor']}")
 
-
-def thread_queue(queue: str):
+def thread_queue(queue: str, callback_function):
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(host= 'localhost')
     )
     channel = connection.channel()
 
     channel.queue_declare(queue= queue)
-    channel.basic_consume(queue= queue, on_message_callback= callback, auto_ack= True)
+    channel.basic_consume(queue= queue, on_message_callback= callback_function, auto_ack= True)
     channel.start_consuming()
 
 
