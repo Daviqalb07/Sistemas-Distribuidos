@@ -31,7 +31,7 @@ class Lamp:
     
     def OnOffLuminositySensor(self, request, context):
         self.sensor.on_off_sensor()
-        return self.GenerateResponse()
+        return lamp_pb2.ResponseOnOffLuminositySensor(status= self.sensor.get_status())
     
     def GenerateResponse(self):
         response = lamp_pb2.ResponseLamp(

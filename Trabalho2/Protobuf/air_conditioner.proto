@@ -7,7 +7,7 @@ service AirConditioner{
     rpc UpperTemp (RequestAirConditioner) returns (ResponseAirConditioner) {}
     rpc LowerTemp (RequestAirConditioner) returns (ResponseAirConditioner) {}
     rpc GetAirCondInfo (RequestAirConditioner) returns (ResponseAirConditioner) {}
-    rpc OnOffTemperatureSensor(RequestAirConditioner) returns (ResponseAirConditioner) {}
+    rpc OnOffTemperatureSensor(RequestAirConditioner) returns (ResponseOnOffTemperatureSensor) {}
 }
 
 
@@ -18,4 +18,8 @@ message ResponseAirConditioner{
     string name = 2;
     bool status = 3;
     int32 temperature = 4;
+}
+
+message ResponseOnOffTemperatureSensor{
+    bool status = 1;
 }

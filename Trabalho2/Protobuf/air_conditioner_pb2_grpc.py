@@ -37,7 +37,7 @@ class AirConditionerStub(object):
         self.OnOffTemperatureSensor = channel.unary_unary(
                 '/SmartOffice.AirConditioner/OnOffTemperatureSensor',
                 request_serializer=air__conditioner__pb2.RequestAirConditioner.SerializeToString,
-                response_deserializer=air__conditioner__pb2.ResponseAirConditioner.FromString,
+                response_deserializer=air__conditioner__pb2.ResponseOnOffTemperatureSensor.FromString,
                 )
 
 
@@ -100,7 +100,7 @@ def add_AirConditionerServicer_to_server(servicer, server):
             'OnOffTemperatureSensor': grpc.unary_unary_rpc_method_handler(
                     servicer.OnOffTemperatureSensor,
                     request_deserializer=air__conditioner__pb2.RequestAirConditioner.FromString,
-                    response_serializer=air__conditioner__pb2.ResponseAirConditioner.SerializeToString,
+                    response_serializer=air__conditioner__pb2.ResponseOnOffTemperatureSensor.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -193,6 +193,6 @@ class AirConditioner(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.AirConditioner/OnOffTemperatureSensor',
             air__conditioner__pb2.RequestAirConditioner.SerializeToString,
-            air__conditioner__pb2.ResponseAirConditioner.FromString,
+            air__conditioner__pb2.ResponseOnOffTemperatureSensor.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

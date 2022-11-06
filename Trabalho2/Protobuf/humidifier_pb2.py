@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10humidifier.proto\x12\x0bSmartOffice\"\x13\n\x11RequestHumidifier\"R\n\x12ResponseHumidifier\x12\x0c\n\x04tipo\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\x08\x12\x10\n\x08humidity\x18\x04 \x01(\x05\x32\xb6\x03\n\nHumidifier\x12T\n\x0fOnOffHumidifier\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x12O\n\nUpperHumid\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x12O\n\nLowerHumid\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x12V\n\x11GetHumidifierInfo\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x12X\n\x13OnOffHumiditySensor\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10humidifier.proto\x12\x0bSmartOffice\"\x13\n\x11RequestHumidifier\"R\n\x12ResponseHumidifier\x12\x0c\n\x04tipo\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\x08\x12\x10\n\x08humidity\x18\x04 \x01(\x05\"-\n\x1bResponseOnOffHumiditySensor\x12\x0e\n\x06status\x18\x01 \x01(\x08\x32\xbf\x03\n\nHumidifier\x12T\n\x0fOnOffHumidifier\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x12O\n\nUpperHumid\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x12O\n\nLowerHumid\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x12V\n\x11GetHumidifierInfo\x12\x1e.SmartOffice.RequestHumidifier\x1a\x1f.SmartOffice.ResponseHumidifier\"\x00\x12\x61\n\x13OnOffHumiditySensor\x12\x1e.SmartOffice.RequestHumidifier\x1a(.SmartOffice.ResponseOnOffHumiditySensor\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'humidifier_pb2', globals())
@@ -24,6 +24,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _REQUESTHUMIDIFIER._serialized_end=52
   _RESPONSEHUMIDIFIER._serialized_start=54
   _RESPONSEHUMIDIFIER._serialized_end=136
-  _HUMIDIFIER._serialized_start=139
-  _HUMIDIFIER._serialized_end=577
+  _RESPONSEONOFFHUMIDITYSENSOR._serialized_start=138
+  _RESPONSEONOFFHUMIDITYSENSOR._serialized_end=183
+  _HUMIDIFIER._serialized_start=186
+  _HUMIDIFIER._serialized_end=633
 # @@protoc_insertion_point(module_scope)

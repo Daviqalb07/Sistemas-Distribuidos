@@ -60,4 +60,7 @@ class TemperatureSensor:
     
     def get_sd_temp(self):
         return self.sd_temp
+
+    def get_status(self):
+        return self.on
     

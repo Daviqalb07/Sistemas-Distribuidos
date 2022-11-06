@@ -48,7 +48,7 @@ class AirConditioner:
 
     def OnOffTemperatureSensor(self, request, context):
         self.sensor.on_off_sensor()
-        return self.GenerateResponse()
+        return air_conditioner_pb2.ResponseOnOffTemperatureSensor(status= self.sensor.get_status())
     
     def GenerateResponse(self):
         response = air_conditioner_pb2.ResponseAirConditioner(
@@ -70,7 +70,7 @@ def sense(sensor: TemperatureSensor):
             break
     sensor.terminate_sense()
 
-temperature_sensor = TemperatureSensor(24, 1)
+temperature_sensor = TemperatureSensor(30, 1)
 air_conditioner = AirConditioner(24, temperature_sensor)
 
 Thread(target= sense, args= [temperature_sensor]).start()

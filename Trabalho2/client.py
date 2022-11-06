@@ -63,7 +63,7 @@ def thread_dashboard(client: socket.socket):
         client.send(option_select.encode('utf-8'))
 
 
-def thread_recv(client:socket.socket):
+def thread_recv(client: socket.socket):
     global sensors, devices
     while True:
         try:
@@ -85,7 +85,7 @@ def thread_recv(client:socket.socket):
                     sensors[index_sensor]['status'] = 'Ligado' if json['status'] else 'Desligado'
                     sensors[index_sensor]['valor'] = json['valor']
             
-            if json['tipo'] == "device":
+            elif json['tipo'] == "device":
                 index_device = search_device(json['name'])
                 if index_device < 0:
                     devices.append({
@@ -121,7 +121,6 @@ def search_device(name_device):
     return -1
 
 def clear_terminal():
-
     os.system('cls' if os.name == 'nt' else 'clear')
 
 main()

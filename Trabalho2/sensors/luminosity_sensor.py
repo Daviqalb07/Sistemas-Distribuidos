@@ -64,3 +64,6 @@ class LuminositySensor:
     
     def get_sd_luminosity(self):
         return self.sd_luminosity
+
+    def get_status(self):
+        return self.on

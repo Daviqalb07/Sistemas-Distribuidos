@@ -1,3 +1,0 @@
-HOST = "localhost"
-PORT = 9000
-BUFFER_SIZE = 1024

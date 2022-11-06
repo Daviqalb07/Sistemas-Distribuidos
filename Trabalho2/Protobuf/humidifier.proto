@@ -7,7 +7,7 @@ service Humidifier{
     rpc UpperHumid (RequestHumidifier) returns (ResponseHumidifier) {}
     rpc LowerHumid (RequestHumidifier) returns (ResponseHumidifier) {}
     rpc GetHumidifierInfo (RequestHumidifier) returns (ResponseHumidifier) {}
-    rpc OnOffHumiditySensor(RequestHumidifier) returns (ResponseHumidifier) {}
+    rpc OnOffHumiditySensor(RequestHumidifier) returns (ResponseOnOffHumiditySensor) {}
 }
 
 message RequestHumidifier {}
@@ -17,4 +17,8 @@ message ResponseHumidifier{
     string name = 2;
     bool status = 3;
     int32 humidity = 4;
+}
+
+message ResponseOnOffHumiditySensor {
+    bool status = 1;
 }

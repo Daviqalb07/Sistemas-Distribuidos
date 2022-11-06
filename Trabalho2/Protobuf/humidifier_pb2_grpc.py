@@ -37,7 +37,7 @@ class HumidifierStub(object):
         self.OnOffHumiditySensor = channel.unary_unary(
                 '/SmartOffice.Humidifier/OnOffHumiditySensor',
                 request_serializer=humidifier__pb2.RequestHumidifier.SerializeToString,
-                response_deserializer=humidifier__pb2.ResponseHumidifier.FromString,
+                response_deserializer=humidifier__pb2.ResponseOnOffHumiditySensor.FromString,
                 )
 
 
@@ -100,7 +100,7 @@ def add_HumidifierServicer_to_server(servicer, server):
             'OnOffHumiditySensor': grpc.unary_unary_rpc_method_handler(
                     servicer.OnOffHumiditySensor,
                     request_deserializer=humidifier__pb2.RequestHumidifier.FromString,
-                    response_serializer=humidifier__pb2.ResponseHumidifier.SerializeToString,
+                    response_serializer=humidifier__pb2.ResponseOnOffHumiditySensor.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -193,6 +193,6 @@ class Humidifier(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Humidifier/OnOffHumiditySensor',
             humidifier__pb2.RequestHumidifier.SerializeToString,
-            humidifier__pb2.ResponseHumidifier.FromString,
+            humidifier__pb2.ResponseOnOffHumiditySensor.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

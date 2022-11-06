@@ -27,7 +27,7 @@ class LampStub(object):
         self.OnOffLuminositySensor = channel.unary_unary(
                 '/SmartOffice.Lamp/OnOffLuminositySensor',
                 request_serializer=lamp__pb2.RequestLamp.SerializeToString,
-                response_deserializer=lamp__pb2.ResponseLamp.FromString,
+                response_deserializer=lamp__pb2.ResponseOnOffLuminositySensor.FromString,
                 )
 
 
@@ -68,7 +68,7 @@ def add_LampServicer_to_server(servicer, server):
             'OnOffLuminositySensor': grpc.unary_unary_rpc_method_handler(
                     servicer.OnOffLuminositySensor,
                     request_deserializer=lamp__pb2.RequestLamp.FromString,
-                    response_serializer=lamp__pb2.ResponseLamp.SerializeToString,
+                    response_serializer=lamp__pb2.ResponseOnOffLuminositySensor.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -127,6 +127,6 @@ class Lamp(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SmartOffice.Lamp/OnOffLuminositySensor',
             lamp__pb2.RequestLamp.SerializeToString,
-            lamp__pb2.ResponseLamp.FromString,
+            lamp__pb2.ResponseOnOffLuminositySensor.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

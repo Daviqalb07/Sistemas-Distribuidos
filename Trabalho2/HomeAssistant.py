@@ -140,15 +140,18 @@ def thread_recv_client(client: socket.socket):
             elif(msg == '8'):
                 request = lamp_pb2.RequestLamp() 
                 response = stub_lamp.OnOffLuminositySensor(request)
-                
+                print(f"Status do sensor de luminosidade: {'Ligado' if response.status else 'Desligado'}")
             
             elif(msg == '9'):
                 request = air_conditioner_pb2.RequestAirConditioner() 
                 response = stub_air_conditioner.OnOffTemperatureSensor(request)
+                print(f"Status do sensor de temoeratur: {'Ligado' if response.status else 'Desligado'}")
 
             elif(msg == '10'):
                 request = humidifier_pb2.RequestHumidifier()
                 response = stub_humidifier.OnOffHumiditySensor(request)
+                print(f"Status do sensor de umidade: {'Ligado' if response.status else 'Desligado'}")
+
                 
 
             else:

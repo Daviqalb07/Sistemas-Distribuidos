@@ -59,3 +59,6 @@ class HumiditySensor:
     
     def get_sd_humidity(self):
         return self.sd_humidity
+
+    def get_status(self):
+        return self.on
