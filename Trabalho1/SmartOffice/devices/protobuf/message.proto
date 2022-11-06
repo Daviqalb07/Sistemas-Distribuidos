@@ -1,0 +1,41 @@
+syntax="proto3";
+
+package SmartOffice;
+
+message Action{
+    int32 id = 1;
+    string name = 2;
+}
+
+message Device{
+    int32 id = 1;
+    string name = 2;
+    bool on = 3;
+    message Atributo{
+        string name = 2;
+        int32 value = 3;
+    }
+    Atributo atributo = 4;
+
+    repeated Action actions = 5;
+}
+
+message Request{
+    string name = 1;
+    int32 idDevice = 2;
+    int32 idAction = 3;
+}
+ 
+message Response{
+    repeated Device devices = 1;
+}
+
+message Message {
+    string type = 1;
+    oneof content{
+        Device device = 2;
+        Request request = 3;
+        Response response = 4;
+    }
+}
+
