@@ -15,7 +15,7 @@ docker-compose up -d
 pip install -r requirements.txt
 ```
 
-3. Rode os arquivos correspondentes aos devices, isto é:
+3. Rode todos os arquivos correspondentes aos devices, isto é:
 - _AirConditioner.py_
 - _Humidifier.py_
 - _Lamp.py_
