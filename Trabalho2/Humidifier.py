@@ -42,6 +42,10 @@ class Humidifier:
     
     def GetHumidifierInfo(self, request, context):
         return self.GenerateResponse()
+    
+    def OnOffHumiditySensor(self, request, context):
+        self.sensor.on_off_sensor()
+        return self.GenerateResponse()
         
     def GenerateResponse(self):
         response = humidifier_pb2.ResponseHumidifier(

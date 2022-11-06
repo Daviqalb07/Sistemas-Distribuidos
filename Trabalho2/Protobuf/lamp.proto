@@ -5,6 +5,7 @@ package SmartOffice;
 service Lamp{
     rpc OnOffLamp (RequestLamp) returns (ResponseLamp) {}
     rpc GetLampInfo (RequestLamp) returns (ResponseLamp) {}
+    rpc OnOffLuminositySensor (RequestLamp) returns (ResponseLamp) {}
 }
 
 message RequestLamp {}

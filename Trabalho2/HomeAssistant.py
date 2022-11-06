@@ -27,6 +27,7 @@ def main():
     try:
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.bind((HOME_ASSISTANT_HOST, HOME_ASSISTANT_PORT))
+        print("\nHomeAssistant está online!\n")
     except Exception as e:
         print(e)
         sys.exit(1)
@@ -135,6 +136,20 @@ def thread_recv_client(client: socket.socket):
                 response = stub_humidifier.LowerHumid(request)
                 print(f"Umidade configurada: {response.humidity}%")
                 update_humidifier(response)
+
+            elif(msg == '8'):
+                request = lamp_pb2.RequestLamp() 
+                response = stub_lamp.OnOffLuminositySensor(request)
+                
+            
+            elif(msg == '9'):
+                request = air_conditioner_pb2.RequestAirConditioner() 
+                response = stub_air_conditioner.OnOffTemperatureSensor(request)
+
+            elif(msg == '10'):
+                request = humidifier_pb2.RequestHumidifier()
+                response = stub_humidifier.OnOffHumiditySensor(request)
+                
 
             else:
                 print("Método Inexistente")

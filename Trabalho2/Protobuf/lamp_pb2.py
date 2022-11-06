@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nlamp.proto\x12\x0bSmartOffice\"\r\n\x0bRequestLamp\":\n\x0cResponseLamp\x12\x0c\n\x04tipo\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\x08\x32\x90\x01\n\x04Lamp\x12\x42\n\tOnOffLamp\x12\x18.SmartOffice.RequestLamp\x1a\x19.SmartOffice.ResponseLamp\"\x00\x12\x44\n\x0bGetLampInfo\x12\x18.SmartOffice.RequestLamp\x1a\x19.SmartOffice.ResponseLamp\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nlamp.proto\x12\x0bSmartOffice\"\r\n\x0bRequestLamp\":\n\x0cResponseLamp\x12\x0c\n\x04tipo\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\x08\x32\xe0\x01\n\x04Lamp\x12\x42\n\tOnOffLamp\x12\x18.SmartOffice.RequestLamp\x1a\x19.SmartOffice.ResponseLamp\"\x00\x12\x44\n\x0bGetLampInfo\x12\x18.SmartOffice.RequestLamp\x1a\x19.SmartOffice.ResponseLamp\"\x00\x12N\n\x15OnOffLuminositySensor\x12\x18.SmartOffice.RequestLamp\x1a\x19.SmartOffice.ResponseLamp\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'lamp_pb2', globals())
@@ -25,5 +25,5 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _RESPONSELAMP._serialized_start=42
   _RESPONSELAMP._serialized_end=100
   _LAMP._serialized_start=103
-  _LAMP._serialized_end=247
+  _LAMP._serialized_end=327
 # @@protoc_insertion_point(module_scope)

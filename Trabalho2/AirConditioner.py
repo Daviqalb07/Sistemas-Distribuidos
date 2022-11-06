@@ -46,6 +46,10 @@ class AirConditioner:
     def GetAirCondInfo(self, request, context):
         return self.GenerateResponse()
 
+    def OnOffTemperatureSensor(self, request, context):
+        self.sensor.on_off_sensor()
+        return self.GenerateResponse()
+    
     def GenerateResponse(self):
         response = air_conditioner_pb2.ResponseAirConditioner(
             tipo= "device",

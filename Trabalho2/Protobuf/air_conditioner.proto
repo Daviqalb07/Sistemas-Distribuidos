@@ -7,6 +7,7 @@ service AirConditioner{
     rpc UpperTemp (RequestAirConditioner) returns (ResponseAirConditioner) {}
     rpc LowerTemp (RequestAirConditioner) returns (ResponseAirConditioner) {}
     rpc GetAirCondInfo (RequestAirConditioner) returns (ResponseAirConditioner) {}
+    rpc OnOffTemperatureSensor(RequestAirConditioner) returns (ResponseAirConditioner) {}
 }
 
 

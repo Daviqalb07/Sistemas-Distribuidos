@@ -7,6 +7,7 @@ service Humidifier{
     rpc UpperHumid (RequestHumidifier) returns (ResponseHumidifier) {}
     rpc LowerHumid (RequestHumidifier) returns (ResponseHumidifier) {}
     rpc GetHumidifierInfo (RequestHumidifier) returns (ResponseHumidifier) {}
+    rpc OnOffHumiditySensor(RequestHumidifier) returns (ResponseHumidifier) {}
 }
 
 message RequestHumidifier {}

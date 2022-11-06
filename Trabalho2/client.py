@@ -42,18 +42,22 @@ def thread_dashboard(client: socket.socket):
         print()
         for sensor in sensors:
             print(f"[+] Sensor: {sensor['nome']}")
+            print(f"\tStatus: {sensor['status']}")
             print(f"\tValor: {sensor['valor']} {sensor['unidade']}")
 
         print()
-        print("0 - Atualizar dashboard")
-        print("1 - Ligar/Desligar Lâmpada")
-        print("2 - Ligar/Desligar o Ar Condicionado")
-        print("3 - Aumentar temperatura do Ar Condicionado")
-        print("4 - Diminuir temperatura do Ar Condicionado")
-        print("5 - Ligar/Desligar o Umidificador")
-        print("6 - Aumentar umidificação")
-        print("7 - Diminuir umidificação\n")
+        print(" 0 - Atualizar dashboard")
+        print(" 1 - Ligar/Desligar Lâmpada")
+        print(" 2 - Ligar/Desligar Ar Condicionado")
+        print(" 3 - Aumentar temperatura do Ar Condicionado")
+        print(" 4 - Diminuir temperatura do Ar Condicionado")
+        print(" 5 - Ligar/Desligar Umidificador")
+        print(" 6 - Aumentar umidificação")
+        print(" 7 - Diminuir umidificação")
 
+        print(" 8 - Ligar/Desligar Sensor de Luminosidade")
+        print(" 9 - Ligar/Desligar Sensor de Temperatura")
+        print("10 - Ligar/Desligar Sensor de Umidade")
         option_select = input("Selecione qual método deseja utilizar: ")
 
         client.send(option_select.encode('utf-8'))
@@ -72,11 +76,13 @@ def thread_recv(client:socket.socket):
                     sensors.append({
                         'id': json['id'],
                         'nome': json['nome'],
+                        'status': 'Ligado' if json['status'] else 'Desligado',
                         'valor': json['valor'],
                         'unidade': json['unidade']
                     })
 
                 else:
+                    sensors[index_sensor]['status'] = 'Ligado' if json['status'] else 'Desligado'
                     sensors[index_sensor]['valor'] = json['valor']
             
             if json['tipo'] == "device":
