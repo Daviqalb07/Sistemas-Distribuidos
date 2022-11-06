@@ -45,7 +45,7 @@ def main():
         client, _ = server.accept()
         clients.append(client)
         Thread(target= thread_recv_client, args= [client]).start()
-        Thread(target= thread_send_devices, args= [client]).start()
+        #Thread(target= thread_send_devices, args= [client]).start()
 
 
     
@@ -71,24 +71,30 @@ def thread_queue(queue: str):
 def thread_send_devices(client: socket.socket):
     global devices
 
-    while True:
-        for key in devices.keys():
-            if devices[key]:
-                client.send(pickle.dumps(devices[key]))
+    for key in devices.keys():
+        if devices[key]:
+            client.send(pickle.dumps(devices[key]))
+        
 
 
 def thread_recv_client(client: socket.socket):
-    stub_lamp = lamp_pb2_grpc.LampStub(grpc.insecure_channel(f'localhost:{LAMP_PORT}'))
     stub_air_conditioner = air_conditioner_pb2_grpc.AirConditionerStub(grpc.insecure_channel(f'localhost:{AIR_CONDITIONER_PORT}'))
     stub_humidifier = humidifier_pb2_grpc.HumidifierStub(grpc.insecure_channel(f'localhost:{HUMIDIFIER_PORT}'))
+    stub_lamp = lamp_pb2_grpc.LampStub(grpc.insecure_channel(f'localhost:{LAMP_PORT}'))
     
     update_air_conditioner(stub_air_conditioner.GetAirCondInfo(air_conditioner_pb2.RequestAirConditioner()))
-    # COLOCAR PARA OS OUTROS DEVICES
+    update_humidifier(stub_humidifier.GetHumidifierInfo(humidifier_pb2.RequestHumidifier()))
+    update_lamp(stub_lamp.GetLampInfo(lamp_pb2.RequestLamp()))
+
     while True:
         try:
             msg = client.recv(BUFF_SIZE).decode('utf-8')
 
-            if(msg == '1'):
+            if(msg == '0'):
+                Thread(target= thread_send_devices, args= [client]).start()
+                pass
+
+            elif(msg == '1'):
                 request = lamp_pb2.RequestLamp() 
                 response = stub_lamp.OnOffLamp(request)
                 print(f"O Status da Lâmpada: {response.status}")
@@ -132,11 +138,15 @@ def thread_recv_client(client: socket.socket):
 
             else:
                 print("Método Inexistente")
-                break
-
+            
+            Thread(target= thread_send_devices, args= [client]).start()
+        
         except Exception as e:
             print(e)
             break
+    
+    clients.remove(client)
+    client.close()
 
 def update_air_conditioner(response):
     global devices

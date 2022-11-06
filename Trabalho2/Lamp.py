@@ -26,7 +26,7 @@ class Lamp:
         response = self.GenerateResponse()
         return response
 
-    def GetAirCondInfo(self, request, context):
+    def GetLampInfo(self, request, context):
         return self.GenerateResponse()
         
     def GenerateResponse(self):

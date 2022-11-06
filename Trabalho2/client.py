@@ -23,32 +23,16 @@ def main():
         print(e)
         sys.exit(1)
     
-
-    #Thread(target= thread_print).start()
-    Thread(target= thread_input, args= [client]).start()
+    Thread(target= thread_dashboard, args= [client]).start()
     Thread(target= thread_recv, args= [client]).start()
 
-def thread_print():
-    while True:
-        for sensor in sensors:
-            print(f"[x] Sensor: {sensor['nome']}")
-            print(f"\t Valor: {sensor['valor']} {sensor['unidade']}")
 
-        print()
-        print("1 - Ligar/Desligar Lâmpada")
-        print("2 - Ligar/Desligar o Ar Condicionado")
-        print("3 - Aumentar temperatura do Ar Condicionado")
-        print("4 - Diminuir temperatura do Ar Condicionado")
-        print("5 - Ligar/Desligar o Umidificador")
-        print("6 - Aumentar umidificação")
-        print("7 - Diminuir umidificação\n")
-        
-        clear_terminal()
-
-
-def thread_input(client: socket.socket):
+def thread_dashboard(client: socket.socket):
     global sensors, devices
+
     while True:
+        clear_terminal()
+        print("==================== SmartOffice ====================")
         for device in devices:
             print(f"[x] Device: {device['name']}")
             print(f"\tStatus: {device['status']}")
@@ -61,6 +45,7 @@ def thread_input(client: socket.socket):
             print(f"\tValor: {sensor['valor']} {sensor['unidade']}")
 
         print()
+        print("0 - Atualizar dashboard")
         print("1 - Ligar/Desligar Lâmpada")
         print("2 - Ligar/Desligar o Ar Condicionado")
         print("3 - Aumentar temperatura do Ar Condicionado")
@@ -68,11 +53,10 @@ def thread_input(client: socket.socket):
         print("5 - Ligar/Desligar o Umidificador")
         print("6 - Aumentar umidificação")
         print("7 - Diminuir umidificação\n")
-        
+
         option_select = input("Selecione qual método deseja utilizar: ")
+
         client.send(option_select.encode('utf-8'))
-        #time.sleep(1)
-        clear_terminal()
 
 
 def thread_recv(client:socket.socket):
